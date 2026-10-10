@@ -204,16 +204,6 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
             <a href="#about" className="text-[#FF391B] font-bold text-lg hover:opacity-80 transition">
               Về Chúng Tôi
             </a>
-            <Link 
-              href="/admin" 
-              className={`px-4 py-2 rounded-full text-sm font-extrabold transition ${
-                isAtTop 
-                  ? 'bg-black text-[#FFEA00] hover:bg-[#FF391B] hover:text-white' 
-                  : 'bg-stone-100 hover:bg-[#FFEA00] text-stone-800 hover:text-[#FF391B]'
-              }`}
-            >
-              Quản Trị CMS
-            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -257,13 +247,6 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
             >
               Về Chúng Tôi
             </a>
-            <Link 
-              href="/admin" 
-              className="block text-lg font-bold text-blue-600 pt-2 border-t border-gray-100"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Đăng nhập CMS Quản Trị →
-            </Link>
           </div>
         )}
       </header>
@@ -330,15 +313,15 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
       </section>
 
       {/* ================= STATEMENT SECTION ================= */}
-      <section id="about" className="py-20 md:py-32 px-6 md:px-14 max-w-[1360px] mx-auto">
-        <div className="max-w-[1100px]">
-          <h2 className="text-[#FF391B] text-3xl md:text-5xl lg:text-[4.2rem] font-black leading-[1.05] tracking-tight">
+      <section id="about" className="w-full bg-[#FFEA00] py-20 md:py-28 px-6 md:px-14">
+        <div className="max-w-[1340px] mx-auto">
+          <h2 className="text-[#FF391B] text-2xl sm:text-3xl md:text-4xl lg:text-[2.5rem] xl:text-[2.75rem] font-black leading-[1.25] tracking-tight">
             Dân số thế giới đang tăng nhanh trong khi diện tích đất canh tác ngày càng thu hẹp. Cùng với biến đổi khí hậu, tương lai của an ninh lương thực đang trở nên bấp bênh hơn bao giờ hết. Chúng ta không thể tiếp tục vùi đầu trong lớp đất cũ, mà phải hành động ngay từ bây giờ.
           </h2>
-          <div className="mt-10 md:mt-12 flex flex-wrap gap-6 items-center">
+          <div className="mt-8 md:mt-10 flex flex-wrap gap-6 items-center">
             <a 
               href="#technology"
-              className="inline-flex items-center space-x-3 text-[#FF391B] font-bold text-xl md:text-2xl hover:translate-x-2 transition-transform duration-200 group"
+              className="inline-flex items-center space-x-3 text-[#FF391B] font-black text-lg md:text-xl hover:translate-x-2 transition-transform duration-200 group"
             >
               <span className="border-b-2 border-[#FF391B] pb-0.5">Khám Phá Quy Trình Canh Tác</span>
               <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
@@ -570,13 +553,13 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
                 Cập nhật những bước phát triển mới nhất từ hệ sinh thái Plenty
               </p>
             </div>
-            <Link 
-              href="/admin/posts" 
+            <a 
+              href="#contact" 
               className="inline-flex items-center space-x-2 text-[#FF391B] font-bold text-xl hover:translate-x-1 transition mt-4 md:mt-0"
             >
-              <span className="border-b border-[#FF391B]">Quản lý bài viết (CMS)</span>
+              <span className="border-b border-[#FF391B]">Đăng ký nhận tin tức</span>
               <ArrowRight size={20} />
-            </Link>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -662,7 +645,6 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
                 <a href="#news" className="hover:underline">Tin Tức</a>
                 <a href="#about" className="hover:underline">Về Chúng Tôi</a>
                 <a href="#farms" className="hover:underline">Trang Trại</a>
-                <Link href="/admin" className="hover:underline bg-white/20 px-3 py-1 rounded-xl">Quản Trị CMS</Link>
               </nav>
 
               <div className="space-y-4 max-w-xl">
