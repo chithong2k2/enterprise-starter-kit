@@ -81,19 +81,20 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
       const currentScrollY = window.scrollY;
 
       // 1. Header scroll logic:
-      // Ở đỉnh trang (scrollY <= 25): header màu vàng, luôn hiện
-      // Khi scroll xuống: header ẩn (-translate-y-full)
-      // Khi scroll lên: header hiện (translate-y-0), màu TRẮNG
-      if (currentScrollY <= 25) {
+      // Ở đúng đỉnh trang (scrollY <= 5): header màu vàng, luôn hiện
+      // Chỉ cần user scroll 1 tí thôi (> 5px): header biến mất ngay lập tức khi cuộn xuống!
+      // Khi scroll lên: header hiện lại (translate-y-0), màu TRẮNG
+      // Khi scroll về lại đỉnh trang (scrollY <= 5): header đổi lại thành màu VÀNG
+      if (currentScrollY <= 5) {
         setIsAtTop(true);
         setHeaderVisible(true);
       } else {
         setIsAtTop(false);
         const diff = currentScrollY - lastScrollY.current;
-        if (diff > 4) {
-          setHeaderVisible(false); // scrolling down -> hide
-        } else if (diff < -4) {
-          setHeaderVisible(true); // scrolling up -> show (white background)
+        if (diff > 1) {
+          setHeaderVisible(false); // cuộn xuống dù chỉ 1px -> biến mất ngay lập tức!
+        } else if (diff < -3) {
+          setHeaderVisible(true); // cuộn lên -> hiện header màu trắng
         }
       }
       lastScrollY.current = currentScrollY;
@@ -272,7 +273,12 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
         ref={heroSectionRef}
         className="relative w-full bg-[#FFEA00] min-h-[175vh]"
       >
-        <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col justify-center items-center pt-16 md:pt-20">
+        <div 
+          className="sticky top-0 w-full h-screen overflow-hidden flex flex-col justify-center items-center transition-[padding] duration-75"
+          style={{
+            paddingTop: `${Math.max(0, (1 - heroProgress) * 72)}px`
+          }}
+        >
           
           {/* Expanding Video Container */}
           <div 
