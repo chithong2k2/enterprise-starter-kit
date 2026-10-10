@@ -1,0 +1,579 @@
+'use client';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { Menu, X, ArrowRight, ChevronLeft, ChevronRight, Play, CheckCircle2 } from 'lucide-react';
+import { SiteSettings, ServiceItem, PostItem } from '@/lib/db';
+
+interface HomePageClientProps {
+  settings: SiteSettings;
+  services: ServiceItem[];
+  posts: PostItem[];
+}
+
+export default function HomePageClient({ settings, services, posts }: HomePageClientProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [videoModalOpen, setVideoModalOpen] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  // Farms slides data (can also be mapped from services or kept tailored for plenty experience)
+  const farmSlides = [
+    {
+      location: "Laramie, Wyoming",
+      title: "Trang trại Plenty® nguyên bản",
+      description: "Đây là trung tâm nghiên cứu và phát triển (R&D) của Plenty, nơi từng giống cây trồng được thử nghiệm và hoàn thiện tỉ mỉ. Chúng tôi thực hiện hàng ngàn thử nghiệm để tìm ra mức độ cấp nước, dinh dưỡng khoáng và quang phổ ánh sáng lý tưởng nhất nhằm nuôi dưỡng cây trồng đạt chuẩn đỉnh cao trong nhà – không ngừng mở rộng ranh giới của nền nông nghiệp hiện đại.",
+      image: "https://www.plenty.ag/wp-content/uploads/2024/03/Plenty_LAR_WY0366-.jpg.webp"
+    },
+    {
+      location: "Richmond, Virginia",
+      title: "Đại trang trại dâu tây",
+      description: "Tổ hợp trang trại dâu tây của chúng tôi tại bang Virginia là trang trại canh tác thẳng đứng trong nhà đầu tiên trên thế giới trồng dâu tây ở quy mô công nghiệp. Plenty Richmond được thiết kế để sản xuất hơn 1.800 tấn dâu tây thơm ngon mỗi năm – ngay cả giữa mùa đông băng giá. Chúng tôi điều chỉnh chính xác từng thông số môi trường như ánh sáng, độ ẩm và nhiệt độ để dâu tây luôn mang hương vị ngọt ngào đỉnh cao.",
+      image: "https://www.plenty.ag/wp-content/uploads/2024/09/farm2.png.webp"
+    },
+    {
+      location: "Sắp ra mắt",
+      title: "Trang trại Plenty thế hệ tiếp theo",
+      description: "Chúng tôi đang mở rộng quy mô với kế hoạch mang công nghệ đột phá tới nhiều cộng đồng và đô thị mới trên toàn cầu. Một ngày không xa, trang trại Plenty tiếp theo có thể sẽ hiện diện ngay tại thành phố của bạn.",
+      image: "https://www.plenty.ag/wp-content/uploads/2024/03/2022_12_14_PLENTY_COMPTON_SL_Propagation_1025_FINAL.jpeg.webp"
+    }
+  ];
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail.trim()) return;
+    setSubmitting(true);
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Độc giả Bản tin',
+          email: newsletterEmail.trim(),
+          phone: '0900000000',
+          message: 'Đăng ký nhận bản tin nông nghiệp thông minh Plenty'
+        })
+      });
+      setSubscribed(true);
+      setNewsletterEmail('');
+    } catch (err) {
+      console.error(err);
+      setSubscribed(true);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="relative min-h-screen bg-white text-[#121212] overflow-x-hidden selection:bg-[#FF391B] selection:text-white font-sans">
+      
+      {/* ================= HEADER ================= */}
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md transition-all border-b border-stone-100">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-20 md:h-24 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center group">
+            <svg className="h-8 md:h-11 w-auto fill-[#FF391B]" viewBox="0 0 299 98" xmlns="http://www.w3.org/2000/svg">
+              <path d="M223.539 74.523v-14.58c-7.144 2.516-9.141.105-9.141-3.981V33.007c2.416.105 5.462.748 8.088 1.466V20.009h-8.088V6.49h-.749c-5.042 4.924-11.988 9.851-18.588 13.623 3.674 3.249 2.622 22.013 2.622 38.47 0 11.738 6.825 17.197 17.329 17.197a32.077 32.077 0 0 0 8.527-1.257ZM37.75 1.365c-7.455 0-14.61 3.458-18.379 9.222.315-4.299 1.574-6.811 2.731-8.385H0c5.672 9.432 2.416 42.032 2.416 72.43h20.192c-2.311-5.346-3.256-12.057-3.256-20.442 3.256 1.678 7.35 2.83 12.602 2.83 18.173 0 29.303-12.263 29.303-29.452.018-15.62-9.328-26.204-23.507-26.204Zm-8.616 41.61c-3.99 0-7.036-1.048-9.767-2.304v-9.75c0-7.85 4.496-14.255 12.602-14.255 8.107 0 11.868 5.765 11.868 12.999.004 7.649-4.72 13.31-14.7 13.31h-.003ZM191.959 62.89V37.313c0-11.11-6.406-18.446-17.749-18.446-6.511 0-13.969 3.365-17.434 10.378.314-3.88 1.258-6.815 2.622-9.226h-19.697c3.15 6.183 2.416 31.777 1.472 54.612h17.91c-.843-8.072-1.053-18.45-1.053-28.3 0-7.34 3.784-12.267 9.366-12.267 4.619 0 8.084 2.617 8.084 8.91 0 6.728 0 21.488-1.259 31.657h19.641c-1.378-3.357-1.903-7.025-1.903-11.743ZM81.602 0h-19.96C67 7.234 63.744 45.386 63.744 74.632h21.413c-7.02-8.703-4.08-52.934-3.555-74.632ZM277.607 62.47c0 23.06-12.288 35.43-29.512 35.43-7.459 0-14.389-1.992-19.746-5.764V75.888c5.147 4.927 10.819 7.126 17.434 7.126 9.137 0 16.386-5.87 16.386-18.655-2.731 5.764-6.934 11.424-16.596 11.424-11.133 0-17.749-7.652-17.749-20.562 0-15.619 1.364-31.653-1.996-35.22h19.745c-1.577 10.378-1.258 18.345-1.258 27.882 0 6.393 2.202 10.797 7.769 10.797 6.829 0 9.246-5.982 9.246-14.36 0-9.118.314-20.02-2.731-24.319h19.637c-1.154 15.317-.629 33.98-.629 42.47ZM293.771 14.117c0-2.244-1.746-3.174-3.896-3.174h-4.016v9.693h2.405v-3.148h1.69l1.577 3.148h2.596l-2.132-3.869a2.823 2.823 0 0 0 1.776-2.65Zm-4.387 1.622h-1.123v-2.916h1.183c1.206 0 1.723.61 1.723 1.424.004.883-.629 1.492-1.783 1.492Z" />
+              <path d="M289.605 6.195c-5.204 0-9.426 3.993-9.426 9.69 0 5.698 4.222 9.687 9.426 9.687 5.203 0 9.395-3.99 9.395-9.687 0-5.697-4.226-9.69-9.395-9.69Zm0 17.28c-4.087 0-7.118-3.033-7.118-7.59s3.038-7.623 7.118-7.623c4.079 0 7.091 3.092 7.091 7.623 0 4.531-3.004 7.59-7.091 7.59ZM116.212 63.106c-5.428 0-8.964-1.294-10.144-4.004 18.401-.938 30.081-9.182 30.081-21.896 0-11.182-8.965-18.364-23.005-18.364-16.749 0-28.073 10.95-28.073 28.256 0 17.657 11.56 28.842 29.594 28.842 9.553 0 17.266-2.725 22.057-6.355V54.01c-4.102 5.72-12.606 9.096-20.51 9.096ZM100.89 45.214c0-8.6 4.957-14.012 12.153-14.012 4.6 0 7.548 2.474 7.548 6.83 0 5.884-6.016 10.595-18.993 11.653a13.175 13.175 0 0 1-.708-4.471Z" />
+            </svg>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center space-x-8">
+            <a href="#farms" className="text-[#121212] hover:text-[#FF391B] font-bold text-lg transition">
+              Trang Trại
+            </a>
+            <a href="#technology" className="text-[#121212] hover:text-[#FF391B] font-bold text-lg transition">
+              Công Nghệ
+            </a>
+            <a href="#news" className="text-[#121212] hover:text-[#FF391B] font-bold text-lg transition">
+              Tin Tức
+            </a>
+            <a href="#about" className="text-[#FF391B] font-bold text-lg hover:opacity-80 transition">
+              Về Chúng Tôi
+            </a>
+            <Link 
+              href="/admin" 
+              className="px-4 py-2 rounded-full bg-stone-100 hover:bg-[#FFEA00] text-stone-800 hover:text-[#FF391B] text-sm font-extrabold transition"
+            >
+              Quản Trị CMS
+            </Link>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+            className="md:hidden text-[#FF391B] p-2 focus:outline-none"
+            aria-label="Mở menu"
+          >
+            {mobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
+          </button>
+        </div>
+
+        {/* Mobile Dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-b border-gray-100 px-6 py-6 space-y-4">
+            <a 
+              href="#farms" 
+              className="block text-xl font-bold text-[#121212]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Trang Trại
+            </a>
+            <a 
+              href="#technology" 
+              className="block text-xl font-bold text-[#121212]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Công Nghệ
+            </a>
+            <a 
+              href="#news" 
+              className="block text-xl font-bold text-[#121212]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Tin Tức
+            </a>
+            <a 
+              href="#about" 
+              className="block text-xl font-bold text-[#FF391B]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Về Chúng Tôi
+            </a>
+            <Link 
+              href="/admin" 
+              className="block text-lg font-bold text-blue-600 pt-2 border-t border-gray-100"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Đăng nhập CMS Quản Trị →
+            </Link>
+          </div>
+        )}
+      </header>
+
+      {/* ================= HERO BANNER ================= */}
+      <section className="relative w-full px-4 md:px-8 py-2 md:py-4">
+        <div className="relative w-full rounded-[24px] md:rounded-[36px] bg-[#FFEA00] overflow-hidden min-h-[580px] md:min-h-[720px] flex flex-col justify-between p-6 md:p-14 shadow-sm">
+          
+          {/* Video Container */}
+          <div className="relative w-full h-[360px] md:h-[500px] rounded-[18px] md:rounded-[28px] overflow-hidden shadow-inner group">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              playsInline 
+              className="w-full h-full object-cover"
+              src="https://www.plenty.ag/wp-content/uploads/2025/12/Plenty_Strawberries_16x9_GENERIC_ProRes-720p_Crop_Resize.mp4"
+            />
+            {/* Play Button */}
+            <div className="absolute inset-0 flex items-center justify-center bg-black/15 transition-opacity">
+              <button 
+                onClick={() => setVideoModalOpen(true)}
+                className="bg-[#FFEA00] hover:scale-105 active:scale-95 transition-all text-[#FF391B] font-black text-lg md:text-xl px-7 py-3.5 rounded-full flex items-center space-x-3 shadow-xl cursor-pointer"
+              >
+                <span>Xem Phim Giới Thiệu</span>
+                <span className="w-8 h-8 rounded-full bg-[#FF391B] text-[#FFEA00] flex items-center justify-center">
+                  <Play size={16} fill="#FFEA00" />
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* Hero Slogan */}
+          <div className="mt-8 md:mt-10">
+            <h1 className="text-[#FF391B] font-extrabold text-2xl md:text-4xl lg:text-5xl leading-tight tracking-tight">
+              Tại Plenty, chúng tôi đang tái định nghĩa diện mạo của một trang trại hiện đại.
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= STATEMENT SECTION ================= */}
+      <section id="about" className="py-20 md:py-32 px-6 md:px-14 max-w-[1360px] mx-auto">
+        <div className="max-w-[1100px]">
+          <h2 className="text-[#FF391B] text-3xl md:text-5xl lg:text-[4.2rem] font-black leading-[1.05] tracking-tight">
+            Dân số thế giới đang tăng nhanh trong khi diện tích đất canh tác ngày càng thu hẹp. Cùng với biến đổi khí hậu, tương lai của an ninh lương thực đang trở nên bấp bênh hơn bao giờ hết. Chúng ta không thể tiếp tục vùi đầu trong lớp đất cũ, mà phải hành động ngay từ bây giờ.
+          </h2>
+          <div className="mt-10 md:mt-12 flex flex-wrap gap-6 items-center">
+            <a 
+              href="#farms"
+              className="inline-flex items-center space-x-3 text-[#FF391B] font-bold text-xl md:text-2xl hover:translate-x-2 transition-transform duration-200 group"
+            >
+              <span className="border-b-2 border-[#FF391B] pb-0.5">Khám Phá Giải Pháp</span>
+              <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= STATS / CON SỐ ẤN TƯỢNG ================= */}
+      <section className="px-4 md:px-8 pb-12 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {settings.stats?.map((stat, idx) => (
+            <div key={idx} className="bg-[#F4F3E8] p-6 md:p-8 rounded-[24px] text-center border border-stone-200/50">
+              <div className="text-3xl md:text-5xl font-black text-[#FF391B] tracking-tight mb-2">
+                {stat.value}
+              </div>
+              <div className="text-sm md:text-base font-bold text-stone-700">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= OUR FARMS HERO CARD ================= */}
+      <section id="farms" className="px-4 md:px-8 py-6">
+        <div className="max-w-[1400px] mx-auto rounded-[28px] md:rounded-[36px] bg-[#F4F3E8] p-8 md:p-16 lg:p-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span className="text-[#FF391B] font-black text-2xl md:text-3xl uppercase tracking-wider block mb-4">
+              Hệ Thống Trang Trại
+            </span>
+            <div className="space-y-6 text-lg md:text-xl lg:text-2xl text-[#121212] leading-relaxed font-normal">
+              <p>
+                Plenty® mang đến nhiều hơn cả những sản phẩm tươi ngon được canh tác tại địa phương. Chúng tôi đang tái định nghĩa hoàn toàn phương thức hoạt động của một nông trại. Các trang trại của Plenty nỗ lực tạo nên tác động tích cực to lớn cho thế giới nhưng giảm thiểu tối đa tác động tiêu cực tới môi trường.
+              </p>
+              <p>
+                Năm 2024, Plenty khánh thành trang trại dâu tây đầu tiên ngay tại trung tâm bang Virginia. Nhờ khả năng gieo trồng và thu hoạch quanh năm trong nhà, những trái dâu của chúng tôi luôn giữ được hương vị ngọt ngào tuyệt hảo của đỉnh mùa hè suốt cả năm.
+              </p>
+            </div>
+          </div>
+          <div className="relative rounded-[22px] overflow-hidden aspect-[4/5] max-h-[560px] shadow-md">
+            <img 
+              src="https://www.plenty.ag/wp-content/uploads/2025/12/A7404482_cropped-for-no-NDA.jpg.webp" 
+              alt="Cơ sở trang trại dâu tây Plenty" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ================= FARMS SLIDER (WYOMING / VIRGINIA / NEXT) ================= */}
+      <section className="px-4 md:px-8 py-12 md:py-20 max-w-[1440px] mx-auto">
+        <div className="flex items-center justify-between mb-8 px-4">
+          <div className="flex items-center space-x-4">
+            <span className="text-sm font-semibold tracking-widest text-[#FF391B] uppercase">
+              Các Trang Trại Tiêu Biểu ({currentSlide + 1} / {farmSlides.length})
+            </span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <button 
+              onClick={() => setCurrentSlide(prev => (prev === 0 ? farmSlides.length - 1 : prev - 1))}
+              className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-black hover:text-white transition cursor-pointer"
+              aria-label="Trang trại trước"
+            >
+              <ChevronLeft size={24} />
+            </button>
+            <button 
+              onClick={() => setCurrentSlide(prev => (prev === farmSlides.length - 1 ? 0 : prev + 1))}
+              className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center hover:bg-black hover:text-white transition cursor-pointer"
+              aria-label="Trang trại tiếp theo"
+            >
+              <ChevronRight size={24} />
+            </button>
+          </div>
+        </div>
+
+        {/* Slide Card */}
+        <div className="rounded-[28px] md:rounded-[36px] bg-[#FFEA00] p-8 md:p-14 lg:p-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center transition-all duration-300 shadow-sm">
+          <div className="space-y-6">
+            <span className="text-black font-semibold text-base md:text-lg tracking-wide uppercase">
+              {farmSlides[currentSlide].location}
+            </span>
+            <h3 className="text-[#FF391B] text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+              {farmSlides[currentSlide].title}
+            </h3>
+            <p className="text-black text-lg md:text-xl leading-relaxed">
+              {farmSlides[currentSlide].description}
+            </p>
+          </div>
+          <div className="relative rounded-[22px] overflow-hidden aspect-[16/10] md:aspect-[4/3] shadow-md">
+            <img 
+              src={farmSlides[currentSlide].image} 
+              alt={farmSlides[currentSlide].title} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Selector Tabs */}
+        <div className="grid grid-cols-3 gap-4 md:gap-6 mt-6">
+          {farmSlides.map((slide, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              className={`text-left p-4 md:p-6 rounded-[20px] transition-all cursor-pointer ${
+                currentSlide === idx 
+                  ? 'bg-black text-white shadow-md' 
+                  : 'bg-[#F4F3E8] text-[#121212] hover:bg-gray-200'
+              }`}
+            >
+              <p className="text-xs md:text-sm font-semibold opacity-70 mb-1">{slide.location}</p>
+              <p className="text-sm md:text-lg font-bold truncate">{slide.title}</p>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= GROWING DIFFERENTLY SECTION ================= */}
+      <section id="technology" className="px-4 md:px-8 py-16 md:py-24 max-w-[1440px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Left Sticky Column */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+            <span className="text-[#FF391B] font-black text-2xl md:text-3xl uppercase tracking-wider block">
+              Phương Pháp Canh Tác Khác Biệt
+            </span>
+            <h2 className="text-[#121212] text-3xl md:text-4xl font-extrabold leading-tight">
+              Plenty® không chỉ trồng nông sản ngon. Chúng tôi sáng tạo nên một phương thức canh tác hoàn toàn mới.
+            </h2>
+            <p className="text-gray-600 text-lg md:text-xl leading-relaxed">
+              Chúng tôi tiên phong phát triển một quy trình nông nghiệp tiết kiệm đất và nước tối đa, có thể ứng dụng trên đa dạng các loại cây trồng. Cho đến nay, Plenty đã gieo trồng thành công hơn 50 giống cây khác nhau trên nền tảng module linh hoạt.
+            </p>
+            <div className="rounded-[24px] overflow-hidden shadow-lg mt-6">
+              <img 
+                src="https://www.plenty.ag/wp-content/uploads/2024/03/221103_PLENTY_SIERRA_17105_BYH3_FINAL-1.jpg.webp" 
+                alt="Công nghệ trồng thẳng đứng Plenty" 
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Right Technology Cards */}
+          <div className="lg:col-span-7 space-y-8">
+            <div className="bg-[#F4F3E8] p-8 md:p-12 rounded-[28px] border border-stone-200/60 shadow-sm hover:shadow-md transition">
+              <h3 className="text-2xl md:text-3xl font-extrabold text-[#FF391B] mb-4">
+                Nền tảng sinh trưởng linh hoạt
+              </h3>
+              <p className="text-lg md:text-xl text-[#121212] leading-relaxed">
+                Công nghệ của Plenty có cấu trúc module độc lập và khả năng mở rộng linh hoạt, áp dụng cho nhiều chủng loại trái cây, rau mầm và các giống hoa màu khác nhau.
+              </p>
+            </div>
+
+            <div className="bg-[#F4F3E8] p-8 md:p-12 rounded-[28px] border border-stone-200/60 shadow-sm hover:shadow-md transition">
+              <h3 className="text-2xl md:text-3xl font-extrabold text-[#FF391B] mb-4">
+                Hệ thống bằng sáng chế độc quyền
+              </h3>
+              <p className="text-lg md:text-xl text-[#121212] leading-relaxed">
+                Chúng tôi kiến tạo lại trang trại từ nền móng ban đầu, đồng nghĩa với việc phát minh hàng loạt phần cứng, phần mềm, cánh tay robot và thuật toán tự động hoàn toàn mới. Plenty sở hữu số lượng bằng sáng chế tại Hoa Kỳ nhiều hơn tất cả các công ty canh tác không ánh sáng mặt trời khác cộng lại.
+              </p>
+            </div>
+
+            <div className="bg-[#F4F3E8] p-8 md:p-12 rounded-[28px] border border-stone-200/60 shadow-sm hover:shadow-md transition">
+              <h3 className="text-2xl md:text-3xl font-extrabold text-[#FF391B] mb-4">
+                Nghiên cứu khoa học đẳng cấp thế giới
+              </h3>
+              <p className="text-lg md:text-xl text-[#121212] leading-relaxed">
+                Chúng tôi đã dành hơn một thập kỷ tập trung toàn lực cho hoạt động nghiên cứu và phát triển (R&D) để xây dựng nên một kỷ nguyên nông nghiệp mới.
+              </p>
+            </div>
+
+            <div className="bg-[#F4F3E8] p-8 md:p-12 rounded-[28px] border border-stone-200/60 shadow-sm hover:shadow-md transition">
+              <h3 className="text-2xl md:text-3xl font-extrabold text-[#FF391B] mb-4">
+                Nông nghiệp vận hành bằng dữ liệu (Data Farming)
+              </h3>
+              <p className="text-lg md:text-xl text-[#121212] leading-relaxed">
+                Với mạng lưới cảm biến đa điểm, thị giác máy tính Computer Vision và thuật toán Machine Learning, hệ thống liên tục giám sát và tự động điều chỉnh điều kiện sinh trưởng vi khí hậu – giúp cây trồng phát triển tốt hơn mỗi ngày.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= LATEST NEWS (CMS DYNAMIC) ================= */}
+      <section id="news" className="px-4 md:px-8 py-16 md:py-24 max-w-[1440px] mx-auto border-t border-gray-100">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+          <div>
+            <h2 className="text-[#FF391B] text-3xl md:text-5xl font-black tracking-tight">
+              Tin Tức & Báo Chí Mới Nhất
+            </h2>
+            <p className="text-stone-500 text-lg mt-2 font-medium">
+              Cập nhật những bước phát triển mới nhất từ hệ sinh thái Plenty
+            </p>
+          </div>
+          <Link 
+            href="/admin/posts" 
+            className="inline-flex items-center space-x-2 text-[#FF391B] font-bold text-xl hover:translate-x-1 transition mt-4 md:mt-0"
+          >
+            <span className="border-b border-[#FF391B]">Quản lý bài viết (CMS)</span>
+            <ArrowRight size={20} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {posts.map((post, idx) => (
+            <article 
+              key={post.id || idx}
+              className="group flex flex-col justify-between bg-[#F4F3E8] rounded-[28px] overflow-hidden border border-stone-200/60 shadow-sm hover:shadow-xl transition-all duration-300"
+            >
+              <div className="relative aspect-[16/11] overflow-hidden bg-stone-200">
+                <img 
+                  src={
+                    idx === 0 
+                      ? "https://www.plenty.ag/wp-content/uploads/2024/11/TS1_1497_BYH_FINAL.jpg.webp" 
+                      : idx === 1 
+                      ? "https://www.plenty.ag/wp-content/uploads/2024/09/farm2.png.webp" 
+                      : "https://www.plenty.ag/wp-content/uploads/2024/03/Plenty_LAR_WY0366-.jpg.webp"
+                  } 
+                  alt={post.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+              </div>
+              <div className="p-8 flex flex-col flex-1 justify-between">
+                <div>
+                  <div className="flex items-center space-x-2 text-[#FF391B] font-bold text-sm tracking-wider uppercase mb-3">
+                    <span>{post.category || 'Tin tức'}</span>
+                    <span>•</span>
+                    <span className="text-stone-500">{post.date}</span>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-[#121212] group-hover:text-[#FF391B] transition-colors line-clamp-2 leading-snug mb-4">
+                    {post.title}
+                  </h3>
+                  <p className="text-gray-600 text-base line-clamp-3 leading-relaxed">
+                    {post.excerpt}
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-stone-200 flex items-center justify-between">
+                  <span className="text-xs text-stone-500 font-semibold">{post.readTime || '4 phút đọc'}</span>
+                  <span className="inline-flex items-center space-x-1 font-bold text-[#FF391B] text-base group-hover:translate-x-1 transition-transform">
+                    <span>Xem chi tiết</span>
+                    <ArrowRight size={18} />
+                  </span>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= FOOTER ================= */}
+      <footer id="contact" className="w-full bg-[#FF391B] text-[#FFEA00] pt-8 pb-12 overflow-hidden">
+        {/* Marquee Tiếng Việt */}
+        <div className="overflow-hidden border-b border-[#FFEA00]/30 pb-6 mb-16">
+          <div className="animate-marquee whitespace-nowrap text-2xl md:text-4xl font-extrabold uppercase tracking-wide">
+            <span className="mx-6">Plenty tự hào là đơn vị tiên phong về bình đẳng cơ hội việc làm và đổi mới nông nghiệp bền vững •</span>
+            <span className="mx-6">Plenty tự hào là đơn vị tiên phong về bình đẳng cơ hội việc làm và đổi mới nông nghiệp bền vững •</span>
+            <span className="mx-6">Plenty tự hào là đơn vị tiên phong về bình đẳng cơ hội việc làm và đổi mới nông nghiệp bền vững •</span>
+            <span className="mx-6">Plenty tự hào là đơn vị tiên phong về bình đẳng cơ hội việc làm và đổi mới nông nghiệp bền vững •</span>
+          </div>
+        </div>
+
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pb-16 border-b border-[#FFEA00]/30">
+            
+            {/* Logo Col */}
+            <div className="lg:col-span-4 space-y-4">
+              <svg className="h-14 md:h-20 w-auto fill-[#FFEA00]" viewBox="0 0 299 98" xmlns="http://www.w3.org/2000/svg">
+                <path d="M223.539 74.523v-14.58c-7.144 2.516-9.141.105-9.141-3.981V33.007c2.416.105 5.462.748 8.088 1.466V20.009h-8.088V6.49h-.749c-5.042 4.924-11.988 9.851-18.588 13.623 3.674 3.249 2.622 22.013 2.622 38.47 0 11.738 6.825 17.197 17.329 17.197a32.077 32.077 0 0 0 8.527-1.257ZM37.75 1.365c-7.455 0-14.61 3.458-18.379 9.222.315-4.299 1.574-6.811 2.731-8.385H0c5.672 9.432 2.416 42.032 2.416 72.43h20.192c-2.311-5.346-3.256-12.057-3.256-20.442 3.256 1.678 7.35 2.83 12.602 2.83 18.173 0 29.303-12.263 29.303-29.452.018-15.62-9.328-26.204-23.507-26.204Zm-8.616 41.61c-3.99 0-7.036-1.048-9.767-2.304v-9.75c0-7.85 4.496-14.255 12.602-14.255 8.107 0 11.868 5.765 11.868 12.999.004 7.649-4.72 13.31-14.7 13.31h-.003ZM191.959 62.89V37.313c0-11.11-6.406-18.446-17.749-18.446-6.511 0-13.969 3.365-17.434 10.378.314-3.88 1.258-6.815 2.622-9.226h-19.697c3.15 6.183 2.416 31.777 1.472 54.612h17.91c-.843-8.072-1.053-18.45-1.053-28.3 0-7.34 3.784-12.267 9.366-12.267 4.619 0 8.084 2.617 8.084 8.91 0 6.728 0 21.488-1.259 31.657h19.641c-1.378-3.357-1.903-7.025-1.903-11.743ZM81.602 0h-19.96C67 7.234 63.744 45.386 63.744 74.632h21.413c-7.02-8.703-4.08-52.934-3.555-74.632ZM277.607 62.47c0 23.06-12.288 35.43-29.512 35.43-7.459 0-14.389-1.992-19.746-5.764V75.888c5.147 4.927 10.819 7.126 17.434 7.126 9.137 0 16.386-5.87 16.386-18.655-2.731 5.764-6.934 11.424-16.596 11.424-11.133 0-17.749-7.652-17.749-20.562 0-15.619 1.364-31.653-1.996-35.22h19.745c-1.577 10.378-1.258 18.345-1.258 27.882 0 6.393 2.202 10.797 7.769 10.797 6.829 0 9.246-5.982 9.246-14.36 0-9.118.314-20.02-2.731-24.319h19.637c-1.154 15.317-.629 33.98-.629 42.47ZM293.771 14.117c0-2.244-1.746-3.174-3.896-3.174h-4.016v9.693h2.405v-3.148h1.69l1.577 3.148h2.596l-2.132-3.869a2.823 2.823 0 0 0 1.776-2.65Zm-4.387 1.622h-1.123v-2.916h1.183c1.206 0 1.723.61 1.723 1.424.004.883-.629 1.492-1.783 1.492Z" />
+                <path d="M289.605 6.195c-5.204 0-9.426 3.993-9.426 9.69 0 5.698 4.222 9.687 9.426 9.687 5.203 0 9.395-3.99 9.395-9.687 0-5.697-4.226-9.69-9.395-9.69Zm0 17.28c-4.087 0-7.118-3.033-7.118-7.59s3.038-7.623 7.118-7.623c4.079 0 7.091 3.092 7.091 7.623 0 4.531-3.004 7.59-7.091 7.59ZM116.212 63.106c-5.428 0-8.964-1.294-10.144-4.004 18.401-.938 30.081-9.182 30.081-21.896 0-11.182-8.965-18.364-23.005-18.364-16.749 0-28.073 10.95-28.073 28.256 0 17.657 11.56 28.842 29.594 28.842 9.553 0 17.266-2.725 22.057-6.355V54.01c-4.102 5.72-12.606 9.096-20.51 9.096ZM100.89 45.214c0-8.6 4.957-14.012 12.153-14.012 4.6 0 7.548 2.474 7.548 6.83 0 5.884-6.016 10.595-18.993 11.653a13.175 13.175 0 0 1-.708-4.471Z" />
+              </svg>
+              <p className="text-sm font-semibold opacity-90 max-w-sm">
+                {settings.slogan}
+              </p>
+              <p className="text-xs opacity-75">
+                Địa chỉ: {settings.address}
+              </p>
+            </div>
+
+            {/* Links & Newsletter */}
+            <div className="lg:col-span-8 space-y-10">
+              <nav className="flex flex-wrap gap-8 md:gap-14 text-xl md:text-2xl font-bold">
+                <a href="#news" className="hover:underline">Tin Tức</a>
+                <a href="#about" className="hover:underline">Về Chúng Tôi</a>
+                <a href="#farms" className="hover:underline">Trang Trại</a>
+                <Link href="/admin" className="hover:underline bg-white/20 px-3 py-1 rounded-xl">Quản Trị CMS</Link>
+              </nav>
+
+              <div className="space-y-4 max-w-xl">
+                <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight">Đăng ký nhận bản tin Plenty</h3>
+                <p className="text-lg md:text-xl font-normal opacity-90">
+                  Cập nhật liên tục những đột phá mới nhất về công nghệ canh tác và hương vị nông sản tươi ngon.
+                </p>
+                {subscribed ? (
+                  <div className="bg-[#FFEA00] text-[#FF391B] font-bold p-4 rounded-full text-center flex items-center justify-center space-x-2">
+                    <CheckCircle2 size={24} />
+                    <span>Cảm ơn bạn đã đăng ký nhận tin của Plenty!</span>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 pt-2">
+                    <input 
+                      type="email" 
+                      required
+                      placeholder="email-cua-ban@vidu.com"
+                      value={newsletterEmail}
+                      onChange={(e) => setNewsletterEmail(e.target.value)}
+                      className="flex-1 bg-white text-black px-6 py-4 rounded-full text-lg placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FFEA00]"
+                    />
+                    <button 
+                      type="submit"
+                      disabled={submitting}
+                      className="bg-[#FFEA00] hover:bg-white text-[#FF391B] font-extrabold px-8 py-4 rounded-full text-lg transition duration-200 cursor-pointer shadow-md disabled:opacity-50"
+                    >
+                      {submitting ? 'Đang gửi...' : 'Đăng Ký'}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Footer Bottom Bar */}
+          <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-sm md:text-base font-semibold">
+            {/* Socials */}
+            <div className="flex items-center space-x-6">
+              <a href="https://www.instagram.com/plenty/" target="_blank" rel="noreferrer" className="hover:opacity-75 transition">
+                Instagram
+              </a>
+              <a href="https://www.linkedin.com/company/plenty-farms/" target="_blank" rel="noreferrer" className="hover:opacity-75 transition">
+                LinkedIn
+              </a>
+              <a href="https://www.youtube.com/channel/UCajiaq9RM0wwnOK1BPtA1bg" target="_blank" rel="noreferrer" className="hover:opacity-75 transition">
+                YouTube
+              </a>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-6">
+              <span>© {new Date().getFullYear()}, {settings.companyName}. Bảo lưu mọi quyền.</span>
+              <a href="#" className="underline hover:no-underline">
+                Chính Sách Bảo Mật
+              </a>
+              <a href="#" className="underline hover:no-underline">
+                Quy Chuẩn Nhà Cung Cấp
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      {/* ================= VIDEO MODAL ================= */}
+      {videoModalOpen && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="relative w-full max-w-5xl bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/20">
+            <button 
+              onClick={() => setVideoModalOpen(false)}
+              className="absolute top-4 right-4 z-10 w-12 h-12 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center transition"
+              aria-label="Đóng video"
+            >
+              <X size={28} />
+            </button>
+            <div className="aspect-video w-full">
+              <iframe 
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/Sd7LNYEtSUM?autoplay=1" 
+                title="Phim giới thiệu Plenty"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowFullScreen
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}

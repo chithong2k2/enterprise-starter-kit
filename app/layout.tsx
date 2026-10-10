@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "Nexo Tech Solutions | Enterprise Software & AI Ops",
-  description: "Bộ giải pháp phần mềm, chuyển đổi số và tự động hóa vận hành cho doanh nghiệp.",
+  title: "Indoor Vertical Farming | Plenty",
+  description: "Plenty is rewriting the rules of agriculture with indoor vertical farms that grow fresh, flavorful, pesticide free greens – all while using just a fraction of the water and land compared to conventional farms.",
+  icons: {
+    icon: "https://www.plenty.ag/wp-content/uploads/2022/05/footer-logo.png",
+  }
 };
 
 export default function RootLayout({
@@ -23,11 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="vi"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className="h-full antialiased scroll-smooth">
+      <body className="min-h-full flex flex-col bg-white text-[#121212] selection:bg-[#FF391B] selection:text-white">
+        {children}
+      </body>
     </html>
   );
 }

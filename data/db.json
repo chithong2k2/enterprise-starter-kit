@@ -1,178 +1,148 @@
 {
   "pageConfig": {
-    "headerVariant": "floating",
-    "footerVariant": "minimal",
+    "headerVariant": "plenty",
+    "footerVariant": "plenty",
     "navItems": [
-      { "id": "nav-about", "label": "Về chúng tôi", "href": "#about" },
-      { "id": "nav-services", "label": "Dịch vụ", "href": "#services" },
-      { "id": "nav-projects", "label": "Dự án", "href": "#projects" },
-      { "id": "nav-team", "label": "Chuyên gia", "href": "#team" },
-      { "id": "nav-testimonials", "label": "Đánh giá", "href": "#testimonials" },
-      { "id": "nav-faq", "label": "FAQ", "href": "#faq" },
-      { "id": "nav-contact", "label": "Liên hệ", "href": "#contact" }
+      { "id": "nav-farms", "label": "Trang Trại", "href": "#farms" },
+      { "id": "nav-technology", "label": "Công Nghệ", "href": "#technology" },
+      { "id": "nav-news", "label": "Tin Tức", "href": "#news" },
+      { "id": "nav-about", "label": "Về Chúng Tôi", "href": "#about" },
+      { "id": "nav-contact", "label": "Liên Hệ", "href": "#contact" }
     ],
     "sections": [
       {
         "id": "sec-hero",
         "type": "hero",
-        "variant": "form",
-        "title": "Khối Đầu Trang (Hero Banner)",
+        "variant": "plenty-banner",
+        "title": "Banner Video Nông Nghiệp Thẳng Đứng",
         "enabled": true
       },
       {
-        "id": "sec-logos",
-        "type": "logos",
-        "variant": "clean",
-        "title": "Khách Hàng / Đối Tác (Logos Bar)",
-        "enabled": true
-      },
-      {
-        "id": "sec-about",
+        "id": "sec-statement",
         "type": "about",
-        "variant": "story",
-        "title": "Giới Thiệu Doanh Nghiệp (About Us)",
+        "variant": "statement",
+        "title": "Tuyên Ngôn Sứ Mệnh Lương Thực Tương Lai",
         "enabled": true
       },
       {
-        "id": "sec-services",
+        "id": "sec-farms-overview",
+        "type": "about",
+        "variant": "card",
+        "title": "Tổng Quan Hệ Thống Trang Trại",
+        "enabled": true
+      },
+      {
+        "id": "sec-farms-slider",
         "type": "services",
-        "variant": "bento",
-        "title": "Dịch Vụ Cốt Lõi (Services)",
+        "variant": "interactive-slider",
+        "title": "Danh Mục Trang Trại Chủ Lực (Wyoming, Virginia, Tương lai)",
         "enabled": true
       },
       {
-        "id": "sec-projects",
-        "type": "projects",
-        "variant": "grid",
-        "title": "Dự Án / Case Studies",
+        "id": "sec-growing-differently",
+        "type": "services",
+        "variant": "technology-grid",
+        "title": "Phương Pháp Canh Tác Khác Biệt & Bằng Sáng Chế",
         "enabled": true
       },
       {
-        "id": "sec-team",
-        "type": "team",
-        "variant": "cards",
-        "title": "Đội Ngũ Chuyên Gia (Leadership Team)",
-        "enabled": true
-      },
-      {
-        "id": "sec-testimonials",
-        "type": "testimonials",
-        "variant": "quotes",
-        "title": "Đánh Giá Của Khách Hàng (Testimonials)",
-        "enabled": true
-      },
-      {
-        "id": "sec-faq",
-        "type": "faq",
-        "variant": "accordion",
-        "title": "Câu Hỏi Thường Gặp (FAQ)",
-        "enabled": true
-      },
-      {
-        "id": "sec-cta",
-        "type": "cta",
-        "variant": "solid",
-        "title": "Lời Kêu Gọi Hành Động (CTA Banner)",
-        "enabled": true
-      },
-      {
-        "id": "sec-posts",
+        "id": "sec-news",
         "type": "posts",
-        "variant": "standard",
-        "title": "Tin Tức & Góc Chuyên Gia",
+        "variant": "cards",
+        "title": "Tin Tức & Báo Chí Mới Nhất",
         "enabled": true
       },
       {
         "id": "sec-contact",
         "type": "contact",
-        "variant": "split",
-        "title": "Liên Hệ & Đăng Ký Khảo Sát",
+        "variant": "newsletter-cta",
+        "title": "Bản Tin & Liên Hệ Hợp Tác",
         "enabled": true
       }
     ]
   },
   "settings": {
-    "companyName": "NEXO TECH SOLUTIONS",
-    "slogan": "Tiên phong Chuyển đổi số & Tối ưu Vận hành Doanh nghiệp",
-    "hotline": "1900 6868 - 0988 123 456",
-    "email": "contact@nexotech.vn",
-    "address": "Tầng 12, Tòa nhà Keangnam Landmark 72, Nam Từ Liêm, Hà Nội",
-    "workingHours": "Thứ 2 - Thứ 6: 08:30 - 18:00",
-    "primaryColor": "blue",
-    "about": "Nexo Tech Solutions là đối tác công nghệ chiến lược của hơn 250+ doanh nghiệp tại Việt Nam và Đông Nam Á. Chúng tôi chuyên sâu về xây dựng kiến trúc phần mềm tùy biến, tự động hóa quy trình quản trị (ERP/CRM) và tích hợp các giải pháp trí tuệ nhân tạo (AI) giúp tối ưu hóa chi phí và đột phá doanh số.",
+    "companyName": "PLENTY VIỆT NAM",
+    "slogan": "Tái định nghĩa nền nông nghiệp tương lai với công nghệ canh tác thẳng đứng trong nhà",
+    "hotline": "1900 8899 - 0988 567 890",
+    "email": "contact@plenty.vn",
+    "address": "Khu Công Nghệ Cao Hòa Lạc, Km 29 Đại Lộ Thăng Long, Hà Nội",
+    "workingHours": "Thứ 2 - Thứ 7: 08:00 - 17:30",
+    "primaryColor": "rose",
+    "about": "Tại Plenty, chúng tôi đang tái định nghĩa diện mạo của một trang trại hiện đại. Dân số toàn cầu không ngừng gia tăng trong khi quỹ đất nông nghiệp ngày càng thu hẹp, cùng với biến đổi khí hậu khắc nghiệt khiến an ninh lương thực trở nên cấp thiết hơn bao giờ hết. Plenty mang đến giải pháp canh tác thẳng đứng thông minh – năng suất cao gấp nhiều lần, tiết kiệm đến 95% lượng nước và hoàn toàn không sử dụng thuốc bảo vệ thực vật.",
     "stats": [
       {
-        "label": "Năm kinh nghiệm",
-        "value": "8+"
+        "label": "Tiết kiệm nước",
+        "value": "95%"
       },
       {
-        "label": "Dự án hoàn thành",
-        "value": "350+"
+        "label": "Năng suất mỗi mẫu đất",
+        "value": "x350"
       },
       {
-        "label": "Doanh nghiệp đồng hành",
-        "value": "250+"
+        "label": "Thuốc BVTV độc hại",
+        "value": "0%"
       },
       {
-        "label": "Tỷ lệ hài lòng",
-        "value": "99.2%"
+        "label": "Bằng sáng chế US",
+        "value": "100+"
       }
     ]
   },
   "services": [
     {
       "id": "srv-1",
-      "title": "Phát triển Phần mềm & Web App theo yêu cầu",
-      "slug": "phat-trien-phan-mem-web-app",
-      "icon": "Code2",
-      "shortDesc": "Xây dựng các hệ thống web portal, B2B platform và ứng dụng nội bộ chuẩn bảo mật cao, tải lớn.",
+      "title": "Trung tâm R&D Laramie (Wyoming)",
+      "slug": "trang-trai-nghien-cuu-laramie",
+      "icon": "Cpu",
+      "shortDesc": "Trung tâm Nghiên cứu & Phát triển nguyên bản của Plenty, nơi thử nghiệm và hoàn thiện từng giống cây trồng trong điều kiện tối ưu nhất.",
       "features": [
-        "Kiến trúc Microservices / Modular",
-        "Bảo mật chuẩn OWASP Top 10",
-        "Tối ưu tốc độ tải trang < 1.2s",
-        "Tương thích 100% Mobile & Desktop"
+        "Hàng ngàn thử nghiệm vi khí hậu tự động",
+        "Cân chỉnh chính xác quang phổ LED & dinh dưỡng",
+        "Độ ẩm và nhiệt độ kiểm soát hoàn hảo",
+        "Ứng dụng chuyển giao trực tiếp cho trang trại thương mại"
       ],
       "order": 1
     },
     {
       "id": "srv-2",
-      "title": "Hệ thống Quản trị Doanh nghiệp (Mini ERP / CRM)",
-      "slug": "he-thong-quan-tri-erp-crm",
+      "title": "Đại trang trại dâu tây Richmond (Virginia)",
+      "slug": "dai-trang-trai-dau-tay-richmond",
       "icon": "Briefcase",
-      "shortDesc": "Số hóa luồng công việc, quản lý kho bãi, khách hàng và tài chính kế toán theo đúng đặc thù riêng.",
+      "shortDesc": "Trang trại dâu tây thẳng đứng quy mô công nghiệp đầu tiên trên thế giới với sản lượng thiết kế hơn 1.800 tấn quả mỗi năm.",
       "features": [
-        "Phân quyền đa cấp bậc (RBAC)",
-        "Báo cáo Real-time Dashboard",
-        "Tích hợp Hóa đơn điện tử & VietQR",
-        "Xuất nhập Excel tự động"
+        "Sản lượng hơn 4 triệu pound (1.800 tấn) dâu/năm",
+        "Hương vị dâu ngọt ngào chuẩn mùa hè quanh năm",
+        "Thu hoạch liên tục ngay cả giữa mùa đông băng giá",
+        "Robot tự động hóa hoàn toàn quy trình đóng gói"
       ],
       "order": 2
     },
     {
       "id": "srv-3",
-      "title": "Tích hợp Trí tuệ Nhân tạo & Tự động hoá (AI Ops)",
-      "slug": "tich-hop-ai-tu-dong-hoa",
-      "icon": "Cpu",
-      "shortDesc": "Ứng dụng AI Chatbot chăm sóc khách hàng tự động 24/7 và trợ lý phân tích dữ liệu kinh doanh.",
+      "title": "Mạng lưới trang trại thế hệ mới",
+      "slug": "trang-trai-the-he-moi",
+      "icon": "Globe",
+      "shortDesc": "Mô hình trang trại module linh hoạt chuẩn bị mở rộng tới các đô thị lớn trên khắp thế giới và khu vực Châu Á.",
       "features": [
-        "RAG AI Chatbot tra cứu tài liệu",
-        "Tự động phân loại lead & ticket",
-        "Nhận diện văn bản OCR",
-        "Tự động hóa tác vụ lặp lại"
+        "Thiết kế dạng khối module dễ dàng nhân rộng",
+        "Rút ngắn chuỗi cung ứng từ nông trại tới bàn ăn",
+        "Giảm 99% chi phí vận chuyển đường dài",
+        "Đảm bảo rau quả tươi ngon ngay trong ngày"
       ],
       "order": 3
     },
     {
       "id": "srv-4",
-      "title": "Bảo trì & Tối ưu Hạ tầng Đám mây (Cloud & DevOps)",
-      "slug": "bao-tri-ha-tang-cloud-devops",
-      "icon": "ShieldCheck",
-      "shortDesc": "Thiết lập CI/CD, sao lưu dữ liệu tự động, giám sát bảo mật và chịu tải cao 99.99% Uptime.",
+      "title": "Nền tảng Nông nghiệp Dữ liệu (Data Farming)",
+      "slug": "nong-nghiep-du-lieu-ai",
+      "icon": "Code2",
+      "shortDesc": "Kết hợp mạng lưới hàng triệu cảm biến IoT, thị giác máy tính Computer Vision và thuật toán Machine Learning độc quyền.",
       "features": [
-        "Giám sát hệ thống 24/7",
-        "Auto Backup dữ liệu hàng ngày",
-        "Chống tấn công DDoS & WAF",
-        "Tối ưu hóa chi phí server"
+        "Giám sát sức khỏe cây trồng từng giây",
+        "Học máy tối ưu hóa quang hợp và vị ngon",
+        "Số lượng bằng sáng chế sunless grower vượt trội",
+        "Tự động cảnh báo và xử lý sâu bệnh không hóa chất"
       ],
       "order": 4
     }
@@ -180,178 +150,166 @@
   "team": [
     {
       "id": "member-1",
-      "name": "Nguyễn Hoàng Nam",
-      "role": "Tổng Giám Đốc (CEO & Co-founder)",
-      "experience": "12 năm kinh nghiệm tư vấn chuyển đổi số doanh nghiệp",
-      "initials": "NHN"
+      "name": "TS. Arama Kukutai",
+      "role": "Tổng Giám Đốc (CEO)",
+      "experience": "Chuyên gia đầu tư nông nghiệp công nghệ cao và phát triển bền vững toàn cầu",
+      "initials": "AK"
     },
     {
       "id": "member-2",
-      "name": "Trần Quốc Tuấn",
-      "role": "Giám Đốc Công Nghệ (CTO)",
-      "experience": "Chuyên gia kiến trúc hệ thống phân tán & AI Engineering",
-      "initials": "TQT"
+      "name": "Nate Storey",
+      "role": "Nhà Đồng Sáng Lập & Giám Đốc Khoa Học (CSO)",
+      "experience": "Tiến sĩ Nông nghiệp học, tác giả của các bằng sáng chế công nghệ tháp canh tác thẳng đứng",
+      "initials": "NS"
     },
     {
       "id": "member-3",
-      "name": "Lê Mai Phương",
-      "role": "Giám Đốc Vận Hành (COO)",
-      "experience": "Từng phụ trách vận hành chuỗi cung ứng tại tập đoàn đa quốc gia",
-      "initials": "LMP"
+      "name": "Sasha Preuss",
+      "role": "Phó Chủ Tịch Khoa Học Thực Vật (VP of Plant Science)",
+      "experience": "Hơn 20 năm nghiên cứu phát triển giống và tối ưu hóa hệ gen nông nghiệp",
+      "initials": "SP"
     },
     {
       "id": "member-4",
-      "name": "Đặng Minh Trí",
-      "role": "Trưởng Phòng An Ninh Mạng (Head of Security)",
-      "experience": "Chứng chỉ CISSP, chuyên gia kiểm thử bảo mật ngân hàng",
-      "initials": "DMT"
+      "name": "Trần Tiến Đạt",
+      "role": "Giám Đốc Kỹ Thuật Tự Động Hóa (Automation Director)",
+      "experience": "Chuyên gia phát triển hệ thống robot thu hoạch và điều khiển thông minh",
+      "initials": "TTD"
     }
   ],
   "testimonials": [
     {
       "id": "test-1",
-      "clientName": "Ông Phạm Quang Hưng",
-      "clientCompany": "Tổng Giám Đốc - Vận Tải Á Châu Logistics",
-      "feedback": "Hệ thống B2B Portal do Nexo triển khai đã giúp chúng tôi cắt giảm hoàn toàn 3 nhân sự nhập liệu đối soát, tốc độ xử lý đơn hàng tăng gấp đôi ngay trong tháng đầu tiên.",
+      "clientName": "Driscoll's Strawberries",
+      "clientCompany": "Tập đoàn dâu tây số 1 thế giới",
+      "feedback": "Sự hợp tác với Plenty cho phép chúng tôi đem lại những trái dâu tây có độ ngọt và hương vị hảo hạng nhất tới người tiêu dùng vào bất kỳ ngày nào trong năm, kể cả giữa mùa đông.",
       "rating": 5
     },
     {
       "id": "test-2",
-      "clientName": "Bà Đỗ Thu Trang",
-      "clientCompany": "Giám Đốc Vận Hành - Chuỗi Nha Khoa SmileCare",
-      "feedback": "Phần mềm quản lý đặt lịch và hồ sơ bệnh án chạy cực kỳ ổn định. Khách hàng khen ngợi trải nghiệm đặt hẹn qua web rất chuyên nghiệp.",
+      "clientName": "Walmart Fresh Produce",
+      "clientCompany": "Hệ thống Bán lẻ Quốc tế Walmart",
+      "feedback": "Các sản phẩm rau mầm và quả mọng của Plenty duy trì độ tươi giòn lâu hơn đáng kể so với phương pháp canh tác ngoài trời truyền thống nhờ môi trường vô trùng tuyệt đối.",
       "rating": 5
     },
     {
       "id": "test-3",
-      "clientName": "Ông Lê Hoàng Long",
-      "clientCompany": "Phó Giám Đốc - Công Ty Bất Động Sản Golden House",
-      "feedback": "Chúng tôi bàn giao trang web dự án trong 4 ngày. CMS quản trị rất dễ dùng, nhân viên bán hàng không cần học IT cũng cập nhật bảng hàng vèo vèo.",
+      "clientName": "Albertson's Companies",
+      "clientCompany": "Chuỗi siêu thị thực phẩm cao cấp",
+      "feedback": "Khách hàng của chúng tôi cực kỳ đón nhận dòng sản phẩm không dùng thuốc trừ sâu, đóng gói tại chỗ và cung ứng trong ngày của Plenty.",
       "rating": 5
     }
   ],
   "faq": [
     {
       "id": "faq-1",
-      "question": "Thời gian hoàn thiện và bàn giao một hệ thống web doanh nghiệp mất bao lâu?",
-      "answer": "Nhờ kiến trúc Modular có sẵn, các hệ thống giới thiệu doanh nghiệp và quản trị CMS tiêu chuẩn thường được hoàn thiện và chạy thử trong 3 - 5 ngày làm việc. Các hệ thống ERP/CRM phức tạp hơn sẽ mất từ 2 - 4 tuần tùy quy mô nghiệp vụ."
+      "question": "Canh tác thẳng đứng trong nhà (Indoor Vertical Farming) là gì?",
+      "answer": "Là phương pháp trồng cây theo các tháp thẳng đứng nhiều tầng bên trong nhà kính kín, sử dụng đèn LED quang phổ chuyên dụng thay thế ánh nắng mặt trời và hệ thống thủy canh/khí canh tuần hoàn thay thế đất truyền thống."
     },
     {
       "id": "faq-2",
-      "question": "Doanh nghiệp có được bàn giao toàn bộ mã nguồn (Source Code) và Database không?",
-      "answer": "100% CÓ. Sau khi nghiệm thu, chúng tôi bàn giao toàn bộ Git Repository, Docker compose, Database backup và tài liệu hướng dẫn vận hành cho phía khách hàng quản lý độc lập."
+      "question": "Nông sản Plenty có thực sự an toàn và không thuốc trừ sâu không?",
+      "answer": "Hoàn toàn đúng 100%. Do toàn bộ trang trại Plenty hoạt động trong môi trường phòng sạch khép kín tuyệt đối, sâu bệnh và côn trùng không thể xâm nhập. Cây trồng sinh trưởng khỏe mạnh tự nhiên mà không cần bất kỳ giọt thuốc trừ sâu hay diệt cỏ nào."
     },
     {
       "id": "faq-3",
-      "question": "Website có đảm bảo tối ưu hóa công cụ tìm kiếm (SEO) và tải nhanh trên điện thoại không?",
-      "answer": "Hệ thống được xây dựng trên Next.js Server Components, đạt điểm Google PageSpeed 95+ trên di động và chuẩn cấu trúc Schema.org giúp Google index bài viết và dịch vụ cực nhanh."
+      "question": "Trang trại Plenty tiết kiệm nước và đất đai như thế nào?",
+      "answer": "Mô hình tháp đứng cao tầng giúp tiết kiệm tới 99% diện tích đất so với đồng ruộng thông thường. Toàn bộ lượng nước bốc hơi từ cây được hệ thống ngưng tụ thu hồi và lọc tuần hoàn, giảm tới 95% lượng nước tiêu thụ."
     },
     {
       "id": "faq-4",
-      "question": "Chính sách bảo hành và hỗ trợ sau khi bàn giao như thế nào?",
-      "answer": "Chúng tôi cam kết bảo hành kỹ thuật 12 tháng, trực lỗi 24/7 và định kỳ kiểm tra sao lưu dữ liệu tự động hàng tuần để đảm bảo hệ thống luôn sẵn sàng 99.9% Uptime."
+      "question": "Tại sao dâu tây Plenty lại có vị ngon đỉnh cao quanh năm?",
+      "answer": "Nhờ kiểm soát chính xác từng thông số môi trường như nhiệt độ ngày - đêm, độ ẩm, luồng gió và nồng độ dưỡng chất vi lượng, chúng tôi tái tạo chuẩn xác điều kiện của những ngày hè lý tưởng nhất quanh năm suốt tháng."
     }
   ],
   "clients": [
-    {
-      "name": "Vận Tải Á Châu"
-    },
-    {
-      "name": "FinTech Prime"
-    },
-    {
-      "name": "PharmaMed Group"
-    },
-    {
-      "name": "Golden House BĐS"
-    },
-    {
-      "name": "SmileCare Clinic"
-    },
-    {
-      "name": "FMCG Viet Corp"
-    }
+    { "name": "Driscoll's" },
+    { "name": "Walmart" },
+    { "name": "Albertsons" },
+    { "name": "Whole Foods Market" },
+    { "name": "Safeway" },
+    { "name": "Kroger" }
   ],
   "posts": [
     {
       "id": "post-1",
-      "title": "Doanh nghiệp vừa và nhỏ chuyển đổi số: Bắt đầu từ đâu để không lãng phí ngân sách?",
-      "slug": "doanh-nghiep-sme-chuyen-doi-so-bat-dau-tu-dau",
-      "category": "Chiến lược",
-      "excerpt": "Phân tích 5 sai lầm phổ biến khi mua phần mềm đóng gói sẵn và lộ trình từng bước để số hóa hiệu quả.",
-      "readTime": "5 phút đọc",
+      "title": "Plenty hoàn tất tái cấu trúc toàn diện và định hình kỷ nguyên phát triển mới",
+      "slug": "plenty-hoan-tat-tai-cau-truc-phat-trien-moi",
+      "category": "Doanh Nghiệp",
+      "excerpt": "Công ty công nghệ nông nghiệp sáng tạo Plenty Unlimited Inc. công bố lộ trình tăng trưởng mới, tập trung mở rộng quy mô nông nghiệp thẳng đứng hiện đại.",
+      "readTime": "4 phút đọc",
       "date": "10/10/2026",
-      "author": "Nguyễn Hoàng Nam - CTO",
-      "content": "Chuyển đổi số không chỉ là mua một phần mềm đắt tiền. Điểm cốt lõi là chuẩn hóa quy trình trước khi đưa công nghệ vào vận hành..."
+      "author": "Ban Biên Tập Plenty",
+      "content": "Plenty Unlimited Inc. công bố bước chuyển mình chiến lược mới, mở rộng khả năng tiếp cận người tiêu dùng toàn cầu..."
     },
     {
       "id": "post-2",
-      "title": "Case Study: Tự động hóa xử lý 5,000 đơn hàng/ngày với hệ thống Mini ERP",
-      "slug": "case-study-tu-dong-hoa-xu-ly-5000-don-hang",
-      "category": "Case Study",
-      "excerpt": "Hành trình giảm 80% sai sót đối soát đơn hàng cho chuỗi bán lẻ 15 chi nhánh với chi phí chỉ bằng 1/5 SAP.",
-      "readTime": "7 phút đọc",
+      "title": "Plenty đẩy mạnh quy trình tối ưu để dẫn đầu thị trường dâu tây cao cấp",
+      "slug": "plenty-dan-dau-thi-truong-dau-tay-cao-cap",
+      "category": "Chiến Lược",
+      "excerpt": "Tập trung nguồn lực công nghệ mũi nhọn vào thị trường dâu tây cao cấp hợp tác cùng tập đoàn Driscoll's, mang lại giá trị thương mại vượt bậc.",
+      "readTime": "5 phút đọc",
       "date": "08/10/2026",
-      "author": "Đội ngũ Kỹ thuật Nexo",
-      "content": "Trước khi triển khai, doanh nghiệp đối mặt với bài toán nghẽn cổ chai: 10 nhân sự kế toán làm việc ngoài giờ mỗi ngày..."
+      "author": "Phòng Phát Triển Chiến Lược",
+      "content": "Dâu tây là mặt hàng hoa quả có giá trị kinh tế rất lớn nhưng dễ bị ảnh hưởng bởi sâu bệnh và biến đổi khí hậu..."
     },
     {
       "id": "post-3",
-      "title": "Bảo mật dữ liệu nội bộ trong kỷ nguyên ứng dụng GenAI tại nơi làm việc",
-      "slug": "bao-mat-du-lieu-khi-ung-dung-ai",
-      "category": "Bảo mật",
-      "excerpt": "Cách doanh nghiệp triển khai LLM an toàn mà không để lộ bí mật kinh doanh và dữ liệu khách hàng ra ngoài.",
+      "title": "Plenty khánh thành trang trại dâu tây thẳng đứng quy mô thương mại đầu tiên trên thế giới",
+      "slug": "plenty-khanh-thanh-trang-trai-dau-tay-thang-dung",
+      "category": "Công Nghệ",
+      "excerpt": "Hôm nay, Plenty chính thức mở cửa cơ sở sản xuất tại Richmond, Virginia với công nghệ tiên tiến nhất xóa bỏ rào cản thời tiết mùa đông khắc nghiệt.",
       "readTime": "6 phút đọc",
-      "date": "05/10/2026",
-      "author": "Phòng An ninh Thông tin",
-      "content": "Khi nhân viên sử dụng các công cụ AI công cộng, nguy cơ rò rỉ dữ liệu nhạy cảm là rất lớn nếu không có chính sách On-premise hoặc Private API..."
+      "date": "02/10/2026",
+      "author": "Đội Ngũ R&D",
+      "content": "Trang trại Plenty Richmond là minh chứng sống động cho việc ứng dụng công nghệ phòng sạch và ánh sáng nhân tạo..."
     }
   ],
   "projects": [
     {
       "id": "proj-1",
-      "title": "Hệ sinh thái B2B Logistics Vận tải xuyên biên giới",
-      "client": "Tập đoàn Vận tải Á Châu",
-      "category": "Web Platform & Tracking",
-      "result": "Tăng 45% tốc độ xử lý vận đơn, cắt giảm 3 nhân sự nhập liệu thủ công."
+      "title": "Đại trang trại dâu tây trong nhà Richmond Campus",
+      "client": "Thị trường Bắc Mỹ & Driscoll's",
+      "category": "Trang Trại Thương Mại",
+      "result": "Sản lượng 4 triệu pound dâu tây/năm, chất lượng đồng đều 100% các mùa."
     },
     {
       "id": "proj-2",
-      "title": "Cổng thông tin Khách hàng Doanh nghiệp & Thanh toán Tự động",
-      "client": "FinTech Prime Corp",
-      "category": "Fintech Portal",
-      "result": "Xử lý hơn 250 tỷ VNĐ giao dịch/tháng với độ sẵn sàng 99.98%."
+      "title": "Hệ thống thử nghiệm vi khí hậu tự động Laramie R&D",
+      "client": "Viện Nghiên cứu Plenty",
+      "category": "R&D & Thử Nghiệm Giống",
+      "result": "Thu thập hơn 10 tỷ điểm dữ liệu sinh trưởng mỗi ngày từ mạng lưới cảm biến."
     },
     {
       "id": "proj-3",
-      "title": "Hệ thống Quản lý Chuỗi cung ứng Dược phẩm GSP/GDP",
-      "client": "PharmaMed Group",
-      "category": "Custom ERP",
-      "result": "Đáp ứng 100% tiêu chuẩn kiểm định của Bộ Y Tế, truy xuất nguồn gốc trong 2 giây."
+      "title": "Mô hình trang trại đô thị tiết kiệm tài nguyên",
+      "client": "Dự án Hợp tác Thành phố Thông minh",
+      "category": "Quy Hoạch Đô Thị",
+      "result": "Giảm 95% lượng nước tưới tiêu và loại bỏ 100% dấu chân carbon từ vận tải đường dài."
     }
   ],
   "leads": [
     {
       "id": "lead-1",
-      "name": "Trần Minh Quân",
-      "email": "quan.tran@vietfmcg.com",
-      "phone": "0912 345 678",
-      "company": "Công ty Cổ phần FMCG Việt Nam",
-      "service": "he-thong-quan-tri-erp-crm",
-      "message": "Chúng tôi cần tư vấn xây dựng hệ thống quản lý kho và đại lý cho chuỗi 20 cửa hàng.",
+      "name": "Nguyễn Văn Hùng",
+      "email": "hung.nguyen@vinagreen.vn",
+      "phone": "0912 888 999",
+      "company": "Công ty Nông Nghiệp Xanh Việt Nam",
+      "service": "dai-trang-trai-dau-tay-richmond",
+      "message": "Chúng tôi muốn tìm hiểu giải pháp chuyển giao công nghệ trang trại thẳng đứng để áp dụng tại khu công nghệ cao.",
       "status": "new",
-      "createdAt": "2026-10-10T15:30:00Z"
+      "createdAt": "2026-10-10T16:00:00Z"
     },
     {
       "id": "lead-2",
-      "name": "Lê Thị Bích Hạnh",
-      "email": "hanh.le@goldenhouse.vn",
-      "phone": "0988 765 432",
-      "company": "Bất Động Sản Golden House",
-      "service": "phat-trien-phan-mem-web-app",
-      "message": "Cần làm lại trang web giới thiệu dự án và cổng tra cứu tiến độ thanh toán cho cư dân.",
+      "name": "Hoàng Thị Mai",
+      "email": "mai.hoang@freshmarket.com",
+      "phone": "0988 333 444",
+      "company": "Hệ thống Siêu thị Thực Phẩm Sạch",
+      "service": "trang-trai-the-he-moi",
+      "message": "Đề xuất hợp tác phân phối độc quyền dòng sản phẩm dâu tây và rau thơm sạch quanh năm.",
       "status": "contacted",
-      "createdAt": "2026-10-09T09:15:00Z"
+      "createdAt": "2026-10-09T11:20:00Z"
     }
   ]
 }
