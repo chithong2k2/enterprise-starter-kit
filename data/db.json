@@ -1,0 +1,357 @@
+{
+  "pageConfig": {
+    "headerVariant": "floating",
+    "footerVariant": "minimal",
+    "navItems": [
+      { "id": "nav-about", "label": "Về chúng tôi", "href": "#about" },
+      { "id": "nav-services", "label": "Dịch vụ", "href": "#services" },
+      { "id": "nav-projects", "label": "Dự án", "href": "#projects" },
+      { "id": "nav-team", "label": "Chuyên gia", "href": "#team" },
+      { "id": "nav-testimonials", "label": "Đánh giá", "href": "#testimonials" },
+      { "id": "nav-faq", "label": "FAQ", "href": "#faq" },
+      { "id": "nav-contact", "label": "Liên hệ", "href": "#contact" }
+    ],
+    "sections": [
+      {
+        "id": "sec-hero",
+        "type": "hero",
+        "variant": "form",
+        "title": "Khối Đầu Trang (Hero Banner)",
+        "enabled": true
+      },
+      {
+        "id": "sec-logos",
+        "type": "logos",
+        "variant": "clean",
+        "title": "Khách Hàng / Đối Tác (Logos Bar)",
+        "enabled": true
+      },
+      {
+        "id": "sec-about",
+        "type": "about",
+        "variant": "story",
+        "title": "Giới Thiệu Doanh Nghiệp (About Us)",
+        "enabled": true
+      },
+      {
+        "id": "sec-services",
+        "type": "services",
+        "variant": "bento",
+        "title": "Dịch Vụ Cốt Lõi (Services)",
+        "enabled": true
+      },
+      {
+        "id": "sec-projects",
+        "type": "projects",
+        "variant": "grid",
+        "title": "Dự Án / Case Studies",
+        "enabled": true
+      },
+      {
+        "id": "sec-team",
+        "type": "team",
+        "variant": "cards",
+        "title": "Đội Ngũ Chuyên Gia (Leadership Team)",
+        "enabled": true
+      },
+      {
+        "id": "sec-testimonials",
+        "type": "testimonials",
+        "variant": "quotes",
+        "title": "Đánh Giá Của Khách Hàng (Testimonials)",
+        "enabled": true
+      },
+      {
+        "id": "sec-faq",
+        "type": "faq",
+        "variant": "accordion",
+        "title": "Câu Hỏi Thường Gặp (FAQ)",
+        "enabled": true
+      },
+      {
+        "id": "sec-cta",
+        "type": "cta",
+        "variant": "solid",
+        "title": "Lời Kêu Gọi Hành Động (CTA Banner)",
+        "enabled": true
+      },
+      {
+        "id": "sec-posts",
+        "type": "posts",
+        "variant": "standard",
+        "title": "Tin Tức & Góc Chuyên Gia",
+        "enabled": true
+      },
+      {
+        "id": "sec-contact",
+        "type": "contact",
+        "variant": "split",
+        "title": "Liên Hệ & Đăng Ký Khảo Sát",
+        "enabled": true
+      }
+    ]
+  },
+  "settings": {
+    "companyName": "NEXO TECH SOLUTIONS",
+    "slogan": "Tiên phong Chuyển đổi số & Tối ưu Vận hành Doanh nghiệp",
+    "hotline": "1900 6868 - 0988 123 456",
+    "email": "contact@nexotech.vn",
+    "address": "Tầng 12, Tòa nhà Keangnam Landmark 72, Nam Từ Liêm, Hà Nội",
+    "workingHours": "Thứ 2 - Thứ 6: 08:30 - 18:00",
+    "primaryColor": "blue",
+    "about": "Nexo Tech Solutions là đối tác công nghệ chiến lược của hơn 250+ doanh nghiệp tại Việt Nam và Đông Nam Á. Chúng tôi chuyên sâu về xây dựng kiến trúc phần mềm tùy biến, tự động hóa quy trình quản trị (ERP/CRM) và tích hợp các giải pháp trí tuệ nhân tạo (AI) giúp tối ưu hóa chi phí và đột phá doanh số.",
+    "stats": [
+      {
+        "label": "Năm kinh nghiệm",
+        "value": "8+"
+      },
+      {
+        "label": "Dự án hoàn thành",
+        "value": "350+"
+      },
+      {
+        "label": "Doanh nghiệp đồng hành",
+        "value": "250+"
+      },
+      {
+        "label": "Tỷ lệ hài lòng",
+        "value": "99.2%"
+      }
+    ]
+  },
+  "services": [
+    {
+      "id": "srv-1",
+      "title": "Phát triển Phần mềm & Web App theo yêu cầu",
+      "slug": "phat-trien-phan-mem-web-app",
+      "icon": "Code2",
+      "shortDesc": "Xây dựng các hệ thống web portal, B2B platform và ứng dụng nội bộ chuẩn bảo mật cao, tải lớn.",
+      "features": [
+        "Kiến trúc Microservices / Modular",
+        "Bảo mật chuẩn OWASP Top 10",
+        "Tối ưu tốc độ tải trang < 1.2s",
+        "Tương thích 100% Mobile & Desktop"
+      ],
+      "order": 1
+    },
+    {
+      "id": "srv-2",
+      "title": "Hệ thống Quản trị Doanh nghiệp (Mini ERP / CRM)",
+      "slug": "he-thong-quan-tri-erp-crm",
+      "icon": "Briefcase",
+      "shortDesc": "Số hóa luồng công việc, quản lý kho bãi, khách hàng và tài chính kế toán theo đúng đặc thù riêng.",
+      "features": [
+        "Phân quyền đa cấp bậc (RBAC)",
+        "Báo cáo Real-time Dashboard",
+        "Tích hợp Hóa đơn điện tử & VietQR",
+        "Xuất nhập Excel tự động"
+      ],
+      "order": 2
+    },
+    {
+      "id": "srv-3",
+      "title": "Tích hợp Trí tuệ Nhân tạo & Tự động hoá (AI Ops)",
+      "slug": "tich-hop-ai-tu-dong-hoa",
+      "icon": "Cpu",
+      "shortDesc": "Ứng dụng AI Chatbot chăm sóc khách hàng tự động 24/7 và trợ lý phân tích dữ liệu kinh doanh.",
+      "features": [
+        "RAG AI Chatbot tra cứu tài liệu",
+        "Tự động phân loại lead & ticket",
+        "Nhận diện văn bản OCR",
+        "Tự động hóa tác vụ lặp lại"
+      ],
+      "order": 3
+    },
+    {
+      "id": "srv-4",
+      "title": "Bảo trì & Tối ưu Hạ tầng Đám mây (Cloud & DevOps)",
+      "slug": "bao-tri-ha-tang-cloud-devops",
+      "icon": "ShieldCheck",
+      "shortDesc": "Thiết lập CI/CD, sao lưu dữ liệu tự động, giám sát bảo mật và chịu tải cao 99.99% Uptime.",
+      "features": [
+        "Giám sát hệ thống 24/7",
+        "Auto Backup dữ liệu hàng ngày",
+        "Chống tấn công DDoS & WAF",
+        "Tối ưu hóa chi phí server"
+      ],
+      "order": 4
+    }
+  ],
+  "team": [
+    {
+      "id": "member-1",
+      "name": "Nguyễn Hoàng Nam",
+      "role": "Tổng Giám Đốc (CEO & Co-founder)",
+      "experience": "12 năm kinh nghiệm tư vấn chuyển đổi số doanh nghiệp",
+      "initials": "NHN"
+    },
+    {
+      "id": "member-2",
+      "name": "Trần Quốc Tuấn",
+      "role": "Giám Đốc Công Nghệ (CTO)",
+      "experience": "Chuyên gia kiến trúc hệ thống phân tán & AI Engineering",
+      "initials": "TQT"
+    },
+    {
+      "id": "member-3",
+      "name": "Lê Mai Phương",
+      "role": "Giám Đốc Vận Hành (COO)",
+      "experience": "Từng phụ trách vận hành chuỗi cung ứng tại tập đoàn đa quốc gia",
+      "initials": "LMP"
+    },
+    {
+      "id": "member-4",
+      "name": "Đặng Minh Trí",
+      "role": "Trưởng Phòng An Ninh Mạng (Head of Security)",
+      "experience": "Chứng chỉ CISSP, chuyên gia kiểm thử bảo mật ngân hàng",
+      "initials": "DMT"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "test-1",
+      "clientName": "Ông Phạm Quang Hưng",
+      "clientCompany": "Tổng Giám Đốc - Vận Tải Á Châu Logistics",
+      "feedback": "Hệ thống B2B Portal do Nexo triển khai đã giúp chúng tôi cắt giảm hoàn toàn 3 nhân sự nhập liệu đối soát, tốc độ xử lý đơn hàng tăng gấp đôi ngay trong tháng đầu tiên.",
+      "rating": 5
+    },
+    {
+      "id": "test-2",
+      "clientName": "Bà Đỗ Thu Trang",
+      "clientCompany": "Giám Đốc Vận Hành - Chuỗi Nha Khoa SmileCare",
+      "feedback": "Phần mềm quản lý đặt lịch và hồ sơ bệnh án chạy cực kỳ ổn định. Khách hàng khen ngợi trải nghiệm đặt hẹn qua web rất chuyên nghiệp.",
+      "rating": 5
+    },
+    {
+      "id": "test-3",
+      "clientName": "Ông Lê Hoàng Long",
+      "clientCompany": "Phó Giám Đốc - Công Ty Bất Động Sản Golden House",
+      "feedback": "Chúng tôi bàn giao trang web dự án trong 4 ngày. CMS quản trị rất dễ dùng, nhân viên bán hàng không cần học IT cũng cập nhật bảng hàng vèo vèo.",
+      "rating": 5
+    }
+  ],
+  "faq": [
+    {
+      "id": "faq-1",
+      "question": "Thời gian hoàn thiện và bàn giao một hệ thống web doanh nghiệp mất bao lâu?",
+      "answer": "Nhờ kiến trúc Modular có sẵn, các hệ thống giới thiệu doanh nghiệp và quản trị CMS tiêu chuẩn thường được hoàn thiện và chạy thử trong 3 - 5 ngày làm việc. Các hệ thống ERP/CRM phức tạp hơn sẽ mất từ 2 - 4 tuần tùy quy mô nghiệp vụ."
+    },
+    {
+      "id": "faq-2",
+      "question": "Doanh nghiệp có được bàn giao toàn bộ mã nguồn (Source Code) và Database không?",
+      "answer": "100% CÓ. Sau khi nghiệm thu, chúng tôi bàn giao toàn bộ Git Repository, Docker compose, Database backup và tài liệu hướng dẫn vận hành cho phía khách hàng quản lý độc lập."
+    },
+    {
+      "id": "faq-3",
+      "question": "Website có đảm bảo tối ưu hóa công cụ tìm kiếm (SEO) và tải nhanh trên điện thoại không?",
+      "answer": "Hệ thống được xây dựng trên Next.js Server Components, đạt điểm Google PageSpeed 95+ trên di động và chuẩn cấu trúc Schema.org giúp Google index bài viết và dịch vụ cực nhanh."
+    },
+    {
+      "id": "faq-4",
+      "question": "Chính sách bảo hành và hỗ trợ sau khi bàn giao như thế nào?",
+      "answer": "Chúng tôi cam kết bảo hành kỹ thuật 12 tháng, trực lỗi 24/7 và định kỳ kiểm tra sao lưu dữ liệu tự động hàng tuần để đảm bảo hệ thống luôn sẵn sàng 99.9% Uptime."
+    }
+  ],
+  "clients": [
+    {
+      "name": "Vận Tải Á Châu"
+    },
+    {
+      "name": "FinTech Prime"
+    },
+    {
+      "name": "PharmaMed Group"
+    },
+    {
+      "name": "Golden House BĐS"
+    },
+    {
+      "name": "SmileCare Clinic"
+    },
+    {
+      "name": "FMCG Viet Corp"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post-1",
+      "title": "Doanh nghiệp vừa và nhỏ chuyển đổi số: Bắt đầu từ đâu để không lãng phí ngân sách?",
+      "slug": "doanh-nghiep-sme-chuyen-doi-so-bat-dau-tu-dau",
+      "category": "Chiến lược",
+      "excerpt": "Phân tích 5 sai lầm phổ biến khi mua phần mềm đóng gói sẵn và lộ trình từng bước để số hóa hiệu quả.",
+      "readTime": "5 phút đọc",
+      "date": "10/10/2026",
+      "author": "Nguyễn Hoàng Nam - CTO",
+      "content": "Chuyển đổi số không chỉ là mua một phần mềm đắt tiền. Điểm cốt lõi là chuẩn hóa quy trình trước khi đưa công nghệ vào vận hành..."
+    },
+    {
+      "id": "post-2",
+      "title": "Case Study: Tự động hóa xử lý 5,000 đơn hàng/ngày với hệ thống Mini ERP",
+      "slug": "case-study-tu-dong-hoa-xu-ly-5000-don-hang",
+      "category": "Case Study",
+      "excerpt": "Hành trình giảm 80% sai sót đối soát đơn hàng cho chuỗi bán lẻ 15 chi nhánh với chi phí chỉ bằng 1/5 SAP.",
+      "readTime": "7 phút đọc",
+      "date": "08/10/2026",
+      "author": "Đội ngũ Kỹ thuật Nexo",
+      "content": "Trước khi triển khai, doanh nghiệp đối mặt với bài toán nghẽn cổ chai: 10 nhân sự kế toán làm việc ngoài giờ mỗi ngày..."
+    },
+    {
+      "id": "post-3",
+      "title": "Bảo mật dữ liệu nội bộ trong kỷ nguyên ứng dụng GenAI tại nơi làm việc",
+      "slug": "bao-mat-du-lieu-khi-ung-dung-ai",
+      "category": "Bảo mật",
+      "excerpt": "Cách doanh nghiệp triển khai LLM an toàn mà không để lộ bí mật kinh doanh và dữ liệu khách hàng ra ngoài.",
+      "readTime": "6 phút đọc",
+      "date": "05/10/2026",
+      "author": "Phòng An ninh Thông tin",
+      "content": "Khi nhân viên sử dụng các công cụ AI công cộng, nguy cơ rò rỉ dữ liệu nhạy cảm là rất lớn nếu không có chính sách On-premise hoặc Private API..."
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj-1",
+      "title": "Hệ sinh thái B2B Logistics Vận tải xuyên biên giới",
+      "client": "Tập đoàn Vận tải Á Châu",
+      "category": "Web Platform & Tracking",
+      "result": "Tăng 45% tốc độ xử lý vận đơn, cắt giảm 3 nhân sự nhập liệu thủ công."
+    },
+    {
+      "id": "proj-2",
+      "title": "Cổng thông tin Khách hàng Doanh nghiệp & Thanh toán Tự động",
+      "client": "FinTech Prime Corp",
+      "category": "Fintech Portal",
+      "result": "Xử lý hơn 250 tỷ VNĐ giao dịch/tháng với độ sẵn sàng 99.98%."
+    },
+    {
+      "id": "proj-3",
+      "title": "Hệ thống Quản lý Chuỗi cung ứng Dược phẩm GSP/GDP",
+      "client": "PharmaMed Group",
+      "category": "Custom ERP",
+      "result": "Đáp ứng 100% tiêu chuẩn kiểm định của Bộ Y Tế, truy xuất nguồn gốc trong 2 giây."
+    }
+  ],
+  "leads": [
+    {
+      "id": "lead-1",
+      "name": "Trần Minh Quân",
+      "email": "quan.tran@vietfmcg.com",
+      "phone": "0912 345 678",
+      "company": "Công ty Cổ phần FMCG Việt Nam",
+      "service": "he-thong-quan-tri-erp-crm",
+      "message": "Chúng tôi cần tư vấn xây dựng hệ thống quản lý kho và đại lý cho chuỗi 20 cửa hàng.",
+      "status": "new",
+      "createdAt": "2026-10-10T15:30:00Z"
+    },
+    {
+      "id": "lead-2",
+      "name": "Lê Thị Bích Hạnh",
+      "email": "hanh.le@goldenhouse.vn",
+      "phone": "0988 765 432",
+      "company": "Bất Động Sản Golden House",
+      "service": "phat-trien-phan-mem-web-app",
+      "message": "Cần làm lại trang web giới thiệu dự án và cổng tra cứu tiến độ thanh toán cho cư dân.",
+      "status": "contacted",
+      "createdAt": "2026-10-09T09:15:00Z"
+    }
+  ]
+}
