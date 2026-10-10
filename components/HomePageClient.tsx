@@ -19,6 +19,15 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
   const [subscribed, setSubscribed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  // Header visibility & dynamic background state
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const [isAtTop, setIsAtTop] = useState(true);
+  const lastScrollY = useRef(0);
+
+  // Hero video expand-on-scroll progress (0 to 1)
+  const [heroProgress, setHeroProgress] = useState(0);
+  const heroSectionRef = useRef<HTMLDivElement | null>(null);
+
   // Progressive scroll tracking for the timeline
   // progress goes from 0 to 3 (0 = step 1, 1 = line draws to step 2, 2 = line draws to step 3, 3 = line draws to step 4)
   const [timelineProgress, setTimelineProgress] = useState(0);
@@ -66,22 +75,51 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
     }
   ];
 
-  // Scroll listener that calculates exact continuous line progress from 0 to 3
+  // Unified scroll listener handling Header, Hero video expansion, and Technology timeline
   useEffect(() => {
     const handleScroll = () => {
-      if (!timelineSectionRef.current) return;
-      const rect = timelineSectionRef.current.getBoundingClientRect();
-      const topOffset = 80;
-      const totalScrollable = rect.height - window.innerHeight;
-      
-      if (totalScrollable <= 0) return;
-      
-      // Starts calculating progress precisely when section sticks under header
-      const scrolled = topOffset - rect.top;
-      const ratio = Math.max(0, Math.min(1, scrolled / totalScrollable));
-      
-      // Map 0 -> 1 to 0 -> 3
-      setTimelineProgress(ratio * 3);
+      const currentScrollY = window.scrollY;
+
+      // 1. Header scroll logic:
+      // Ở đỉnh trang (scrollY <= 25): header màu vàng, luôn hiện
+      // Khi scroll xuống: header ẩn (-translate-y-full)
+      // Khi scroll lên: header hiện (translate-y-0), màu TRẮNG
+      if (currentScrollY <= 25) {
+        setIsAtTop(true);
+        setHeaderVisible(true);
+      } else {
+        setIsAtTop(false);
+        const diff = currentScrollY - lastScrollY.current;
+        if (diff > 4) {
+          setHeaderVisible(false); // scrolling down -> hide
+        } else if (diff < -4) {
+          setHeaderVisible(true); // scrolling up -> show (white background)
+        }
+      }
+      lastScrollY.current = currentScrollY;
+
+      // 2. Hero video expansion:
+      if (heroSectionRef.current) {
+        const heroRect = heroSectionRef.current.getBoundingClientRect();
+        const heroScrollable = heroRect.height - window.innerHeight;
+        if (heroScrollable > 0) {
+          const heroScrolled = -heroRect.top;
+          const ratio = Math.max(0, Math.min(1, heroScrolled / heroScrollable));
+          setHeroProgress(ratio);
+        }
+      }
+
+      // 3. Technology timeline progress:
+      if (timelineSectionRef.current) {
+        const rect = timelineSectionRef.current.getBoundingClientRect();
+        const topOffset = 80;
+        const totalScrollable = rect.height - window.innerHeight;
+        if (totalScrollable > 0) {
+          const scrolled = topOffset - rect.top;
+          const ratio = Math.max(0, Math.min(1, scrolled / totalScrollable));
+          setTimelineProgress(ratio * 3);
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -118,11 +156,19 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
     <div className="relative min-h-screen bg-white text-[#121212] overflow-x-clip selection:bg-[#FF391B] selection:text-white font-sans">
       
       {/* ================= HEADER ================= */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md transition-all border-b border-stone-100">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-20 md:h-24 flex items-center justify-between">
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
+          headerVisible ? 'translate-y-0' : '-translate-y-full pointer-events-none'
+        } ${
+          isAtTop 
+            ? 'bg-[#FFEA00] text-[#FF391B] border-transparent shadow-none' 
+            : 'bg-white/95 backdrop-blur-md text-[#121212] border-b border-stone-200/60 shadow-md'
+        }`}
+      >
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <svg className="h-8 md:h-11 w-auto fill-[#FF391B]" viewBox="0 0 299 98" xmlns="http://www.w3.org/2000/svg">
+            <svg className="h-8 md:h-10 w-auto fill-[#FF391B]" viewBox="0 0 299 98" xmlns="http://www.w3.org/2000/svg">
               <path d="M223.539 74.523v-14.58c-7.144 2.516-9.141.105-9.141-3.981V33.007c2.416.105 5.462.748 8.088 1.466V20.009h-8.088V6.49h-.749c-5.042 4.924-11.988 9.851-18.588 13.623 3.674 3.249 2.622 22.013 2.622 38.47 0 11.738 6.825 17.197 17.329 17.197a32.077 32.077 0 0 0 8.527-1.257ZM37.75 1.365c-7.455 0-14.61 3.458-18.379 9.222.315-4.299 1.574-6.811 2.731-8.385H0c5.672 9.432 2.416 42.032 2.416 72.43h20.192c-2.311-5.346-3.256-12.057-3.256-20.442 3.256 1.678 7.35 2.83 12.602 2.83 18.173 0 29.303-12.263 29.303-29.452.018-15.62-9.328-26.204-23.507-26.204Zm-8.616 41.61c-3.99 0-7.036-1.048-9.767-2.304v-9.75c0-7.85 4.496-14.255 12.602-14.255 8.107 0 11.868 5.765 11.868 12.999.004 7.649-4.72 13.31-14.7 13.31h-.003ZM191.959 62.89V37.313c0-11.11-6.406-18.446-17.749-18.446-6.511 0-13.969 3.365-17.434 10.378.314-3.88 1.258-6.815 2.622-9.226h-19.697c3.15 6.183 2.416 31.777 1.472 54.612h17.91c-.843-8.072-1.053-18.45-1.053-28.3 0-7.34 3.784-12.267 9.366-12.267 4.619 0 8.084 2.617 8.084 8.91 0 6.728 0 21.488-1.259 31.657h19.641c-1.378-3.357-1.903-7.025-1.903-11.743ZM81.602 0h-19.96C67 7.234 63.744 45.386 63.744 74.632h21.413c-7.02-8.703-4.08-52.934-3.555-74.632ZM277.607 62.47c0 23.06-12.288 35.43-29.512 35.43-7.459 0-14.389-1.992-19.746-5.764V75.888c5.147 4.927 10.819 7.126 17.434 7.126 9.137 0 16.386-5.87 16.386-18.655-2.731 5.764-6.934 11.424-16.596 11.424-11.133 0-17.749-7.652-17.749-20.562 0-15.619 1.364-31.653-1.996-35.22h19.745c-1.577 10.378-1.258 18.345-1.258 27.882 0 6.393 2.202 10.797 7.769 10.797 6.829 0 9.246-5.982 9.246-14.36 0-9.118.314-20.02-2.731-24.319h19.637c-1.154 15.317-.629 33.98-.629 42.47ZM293.771 14.117c0-2.244-1.746-3.174-3.896-3.174h-4.016v9.693h2.405v-3.148h1.69l1.577 3.148h2.596l-2.132-3.869a2.823 2.823 0 0 0 1.776-2.65Zm-4.387 1.622h-1.123v-2.916h1.183c1.206 0 1.723.61 1.723 1.424.004.883-.629 1.492-1.783 1.492Z" />
               <path d="M289.605 6.195c-5.204 0-9.426 3.993-9.426 9.69 0 5.698 4.222 9.687 9.426 9.687 5.203 0 9.395-3.99 9.395-9.687 0-5.697-4.226-9.69-9.395-9.69Zm0 17.28c-4.087 0-7.118-3.033-7.118-7.59s3.038-7.623 7.118-7.623c4.079 0 7.091 3.092 7.091 7.623 0 4.531-3.004 7.59-7.091 7.59ZM116.212 63.106c-5.428 0-8.964-1.294-10.144-4.004 18.401-.938 30.081-9.182 30.081-21.896 0-11.182-8.965-18.364-23.005-18.364-16.749 0-28.073 10.95-28.073 28.256 0 17.657 11.56 28.842 29.594 28.842 9.553 0 17.266-2.725 22.057-6.355V54.01c-4.102 5.72-12.606 9.096-20.51 9.096ZM100.89 45.214c0-8.6 4.957-14.012 12.153-14.012 4.6 0 7.548 2.474 7.548 6.83 0 5.884-6.016 10.595-18.993 11.653a13.175 13.175 0 0 1-.708-4.471Z" />
             </svg>
@@ -130,13 +176,28 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#farms" className="text-[#121212] hover:text-[#FF391B] font-bold text-lg transition">
+            <a 
+              href="#farms" 
+              className={`font-bold text-lg transition ${
+                isAtTop ? 'text-black hover:text-[#FF391B]' : 'text-[#121212] hover:text-[#FF391B]'
+              }`}
+            >
               Trang Trại
             </a>
-            <a href="#technology" className="text-[#121212] hover:text-[#FF391B] font-bold text-lg transition">
+            <a 
+              href="#technology" 
+              className={`font-bold text-lg transition ${
+                isAtTop ? 'text-black hover:text-[#FF391B]' : 'text-[#121212] hover:text-[#FF391B]'
+              }`}
+            >
               Quy Trình Canh Tác
             </a>
-            <a href="#news" className="text-[#121212] hover:text-[#FF391B] font-bold text-lg transition">
+            <a 
+              href="#news" 
+              className={`font-bold text-lg transition ${
+                isAtTop ? 'text-black hover:text-[#FF391B]' : 'text-[#121212] hover:text-[#FF391B]'
+              }`}
+            >
               Tin Tức
             </a>
             <a href="#about" className="text-[#FF391B] font-bold text-lg hover:opacity-80 transition">
@@ -144,7 +205,11 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
             </a>
             <Link 
               href="/admin" 
-              className="px-4 py-2 rounded-full bg-stone-100 hover:bg-[#FFEA00] text-stone-800 hover:text-[#FF391B] text-sm font-extrabold transition"
+              className={`px-4 py-2 rounded-full text-sm font-extrabold transition ${
+                isAtTop 
+                  ? 'bg-black text-[#FFEA00] hover:bg-[#FF391B] hover:text-white' 
+                  : 'bg-stone-100 hover:bg-[#FFEA00] text-stone-800 hover:text-[#FF391B]'
+              }`}
             >
               Quản Trị CMS
             </Link>
@@ -162,7 +227,7 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
 
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-gray-100 px-6 py-6 space-y-4">
+          <div className={`md:hidden px-6 py-6 space-y-4 border-b ${isAtTop ? 'bg-[#FFEA00] border-black/10' : 'bg-white border-gray-100'}`}>
             <a 
               href="#farms" 
               className="block text-xl font-bold text-[#121212]"
@@ -202,12 +267,23 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
         )}
       </header>
 
-      {/* ================= HERO BANNER ================= */}
-      <section className="relative w-full px-4 md:px-8 py-2 md:py-4">
-        <div className="relative w-full rounded-[24px] md:rounded-[36px] bg-[#FFEA00] overflow-hidden min-h-[580px] md:min-h-[720px] flex flex-col justify-between p-6 md:p-14 shadow-sm">
+      {/* ================= HERO SECTION (FULL VÀNG, VIDEO EXPAND TO 100VH 100VW ON SCROLL) ================= */}
+      <section 
+        ref={heroSectionRef}
+        className="relative w-full bg-[#FFEA00] min-h-[175vh]"
+      >
+        <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col justify-center items-center pt-16 md:pt-20">
           
-          {/* Video Container */}
-          <div className="relative w-full h-[360px] md:h-[500px] rounded-[18px] md:rounded-[28px] overflow-hidden shadow-inner group">
+          {/* Expanding Video Container */}
+          <div 
+            className="relative overflow-hidden transition-[border-radius] duration-75 shadow-lg group flex items-center justify-center"
+            style={{
+              width: `${88 + heroProgress * 12}%`,
+              maxWidth: heroProgress > 0.9 ? '100vw' : `${1360 + heroProgress * 400}px`,
+              height: `${62 + heroProgress * 38}vh`,
+              borderRadius: `${Math.max(0, (1 - heroProgress) * 32)}px`,
+            }}
+          >
             <video 
               autoPlay 
               loop 
@@ -231,11 +307,19 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
           </div>
 
           {/* Hero Slogan */}
-          <div className="mt-8 md:mt-10">
+          <div 
+            className="w-full max-w-[1360px] px-6 md:px-12 mt-6 transition-all duration-150 text-center"
+            style={{
+              opacity: Math.max(0, 1 - heroProgress * 2.2),
+              transform: `translateY(${heroProgress * 20}px)`,
+              display: heroProgress > 0.65 ? 'none' : 'block'
+            }}
+          >
             <h1 className="text-[#FF391B] font-extrabold text-2xl md:text-4xl lg:text-5xl leading-tight tracking-tight">
               Tại Plenty, chúng tôi đang tái định nghĩa diện mạo của một trang trại hiện đại.
             </h1>
           </div>
+
         </div>
       </section>
 
