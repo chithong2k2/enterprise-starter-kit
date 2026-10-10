@@ -19,9 +19,9 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
   const [subscribed, setSubscribed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // Active step in the "Growing Differently" timeline process
+  // Active step in the "Canh Tác Khác Biệt" timeline process (0, 1, 2, 3)
   const [activeStep, setActiveStep] = useState(0);
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const timelineContainerRef = useRef<HTMLDivElement | null>(null);
 
   // Farms slides data
   const farmSlides = [
@@ -45,42 +45,58 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
     }
   ];
 
-  // Timeline process steps for "Growing Differently"
+  // 4 steps of the process
   const processSteps = [
     {
+      stepNumber: "01",
       title: "Nền tảng sinh trưởng linh hoạt",
-      description: "Công nghệ của Plenty có cấu trúc module và khả năng mở rộng linh hoạt, áp dụng tối ưu trên đa dạng các loại cây trồng: từ trái cây, rau mầm cho đến các loại hoa màu."
+      subtitle: "A growing platform",
+      description: "Công nghệ của Plenty có cấu trúc module và khả năng mở rộng linh hoạt, áp dụng tối ưu trên đa dạng các loại cây trồng: từ dâu tây, cà chua, dưa leo cho đến các loại rau mầm và thảo mộc chất lượng cao."
     },
     {
+      stepNumber: "02",
       title: "Hệ thống bằng sáng chế độc quyền",
+      subtitle: "Patent not pending",
       description: "Chúng tôi tái tạo trang trại từ nền móng ban đầu, đồng nghĩa với việc phát minh hàng loạt phần cứng, phần mềm, robot và công nghệ tự động hoàn toàn mới. Plenty sở hữu số lượng bằng sáng chế tại Hoa Kỳ nhiều hơn tất cả các công ty canh tác không ánh nắng mặt trời khác cộng lại."
     },
     {
+      stepNumber: "03",
       title: "Nghiên cứu khoa học đẳng cấp thế giới",
-      description: "Chúng tôi đã dành hơn một thập kỷ tập trung nghiên cứu và phát triển để xây dựng nên một kỷ nguyên canh tác hoàn toàn mới."
+      subtitle: "World class research",
+      description: "Chúng tôi đã dành hơn một thập kỷ tập trung nghiên cứu và phát triển để xây dựng nên một kỷ nguyên canh tác hoàn toàn mới, loại bỏ sự phụ thuộc vào thổ nhưỡng đất đai hay thiên tai mùa vụ."
     },
     {
+      stepNumber: "04",
       title: "Nông nghiệp vận hành bằng dữ liệu",
+      subtitle: "Data farming",
       description: "Với các dàn cảm biến đa điểm, thị giác máy tính và thuật toán học máy (Machine Learning), hệ thống liên tục giám sát và tự động tinh chỉnh điều kiện môi trường – giúp trang trại phát triển tốt hơn từng ngày."
     }
   ];
 
-  // Scroll listener to update active step in the vertical timeline
+  // Precise scroll listener to progress step-by-step as user scrolls through the timeline container
   useEffect(() => {
     const handleScroll = () => {
-      const viewportMiddle = window.innerHeight * 0.45;
-      stepRefs.current.forEach((el, index) => {
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= viewportMiddle && rect.bottom >= viewportMiddle - 100) {
-          setActiveStep(index);
-        }
-      });
+      if (!timelineContainerRef.current) return;
+      const rect = timelineContainerRef.current.getBoundingClientRect();
+      const containerHeight = rect.height;
+      const windowHeight = window.innerHeight;
+
+      // Calculate how far into the container we have scrolled (from 0 to 1)
+      const scrolled = (windowHeight * 0.5 - rect.top) / (containerHeight - windowHeight * 0.4);
+      const clamped = Math.max(0, Math.min(1, scrolled));
+      
+      // Map progress to steps 0, 1, 2, 3
+      const stepIndex = Math.min(
+        processSteps.length - 1,
+        Math.floor(clamped * processSteps.length)
+      );
+      setActiveStep(stepIndex);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [processSteps.length]);
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -359,79 +375,103 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
         </div>
       </section>
 
-      {/* ================= GROWING DIFFERENTLY SECTION (CLEAN PROCESS TIMELINE MATCHING PLENTY EXACTLY) ================= */}
-      <section id="technology" className="px-4 md:px-12 py-16 md:py-24 max-w-[1440px] mx-auto bg-[#F4F3E8] rounded-[32px] md:rounded-[44px] my-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-          
-          {/* CỘT TRÁI: HÌNH ẢNH THÁP ĐỨNG CANH TÁC PLENTY BO TRÒN GÓC */}
-          <div className="lg:col-span-5 h-[560px] md:h-[680px] w-full">
-            <div className="rounded-[28px] md:rounded-[32px] overflow-hidden shadow-md h-full w-full bg-stone-200">
-              <img 
-                src="https://www.plenty.ag/wp-content/uploads/2024/03/221103_PLENTY_SIERRA_17105_BYH3_FINAL-1.jpg.webp" 
-                alt="Tháp canh tác thẳng đứng Plenty" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* CỘT PHẢI: NỘI DUNG VÀ TIẾN TRÌNH QUY TRÌNH (KHÔNG BORDER KHUNG TO) */}
-          <div className="lg:col-span-7 flex flex-col justify-between py-2">
+      {/* ================= GROWING DIFFERENTLY SECTION (SCROLL-STEP INTERACTIVE REVEAL) ================= */}
+      {/* Container có chiều cao cuộn (h-[240vh] hoặc 280vh) để người dùng cuộn chuột tạo trải nghiệm lướt qua từng quy trình */}
+      <section 
+        id="technology" 
+        ref={timelineContainerRef}
+        className="relative px-4 md:px-12 my-12 max-w-[1440px] mx-auto min-h-[260vh]"
+      >
+        {/* Sticky wrapper ghim toàn bộ khối ở vị trí trung tâm viewport khi cuộn */}
+        <div className="sticky top-24 md:top-28 w-full bg-[#F4F3E8] rounded-[32px] md:rounded-[44px] p-8 md:p-14 shadow-sm border border-stone-200/50">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             
-            {/* Header tiếng Việt hoàn toàn */}
-            <div className="space-y-4 mb-6">
-              <h2 className="text-[#FF391B] font-black text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[0.95]">
-                Canh Tác Khác Biệt
-              </h2>
-              
-              <div className="space-y-3 text-lg md:text-xl font-medium leading-relaxed">
-                <p className="text-[#FF391B]">
-                  Plenty® mang đến nhiều hơn cả nông sản tươi ngon. Chúng tôi đang tái định nghĩa hoàn toàn phương thức vận hành của một trang trại.
-                </p>
-                <p className="text-[#FF391B]">
-                  Chúng tôi đổi mới quy trình nông nghiệp tiết kiệm đất và nước tối đa, có thể áp dụng trên đa dạng các loại cây trồng. Cho đến nay, Plenty đã nuôi trồng thành công hơn 50 giống cây trồng trên nền tảng công nghệ linh hoạt.
-                </p>
+            {/* CỘT TRÁI: HÌNH ẢNH THÁP ĐỨNG CANH TÁC BO GÓC CÂN ĐỐI */}
+            <div className="lg:col-span-5 h-[480px] md:h-[600px] w-full">
+              <div className="rounded-[28px] md:rounded-[32px] overflow-hidden shadow-md h-full w-full bg-stone-200 relative">
+                <img 
+                  src="https://www.plenty.ag/wp-content/uploads/2024/03/221103_PLENTY_SIERRA_17105_BYH3_FINAL-1.jpg.webp" 
+                  alt="Tháp canh tác thẳng đứng Plenty" 
+                  className="w-full h-full object-cover"
+                />
+                {/* Chỉ số bước đang cuộn tới */}
+                <div className="absolute top-5 left-5 bg-[#FF391B] text-[#FFEA00] px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-wider shadow">
+                  Quy trình {activeStep + 1} / {processSteps.length}
+                </div>
               </div>
             </div>
 
-            {/* Danh sách 4 bước quy trình (Timeline thẳng hàng, sạch sẽ, không khung border) */}
-            <div className="relative pl-6 md:pl-8 space-y-8">
+            {/* CỘT PHẢI: TIÊU ĐỀ + 1 QUY TRÌNH DUY NHẤT HIỆN TƯƠNG ỨNG VỊ TRÍ CUỘN */}
+            <div className="lg:col-span-7 flex flex-col justify-center h-full min-h-[480px] md:min-h-[600px] py-4">
               
-              {/* Đường chỉ đỏ timeline thanh mảnh chạy dọc */}
-              <div className="absolute left-[7px] md:left-[9px] top-3 bottom-6 w-[2px] bg-[#FF391B]" />
+              {/* Header tiếng Việt hoàn toàn */}
+              <div className="space-y-4 mb-8">
+                <h2 className="text-[#FF391B] font-black text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[0.95]">
+                  Canh Tác Khác Biệt
+                </h2>
+                
+                <div className="space-y-3 text-lg md:text-xl font-medium leading-relaxed">
+                  <p className="text-[#FF391B]">
+                    Plenty® mang đến nhiều hơn cả nông sản tươi ngon. Chúng tôi đang tái định nghĩa hoàn toàn phương thức vận hành của một trang trại.
+                  </p>
+                  <p className="text-[#FF391B]">
+                    Chúng tôi đổi mới quy trình nông nghiệp tiết kiệm đất và nước tối đa, có thể áp dụng trên đa dạng các loại cây trồng. Cho đến nay, Plenty đã nuôi trồng thành công hơn 50 giống cây trồng trên nền tảng công nghệ linh hoạt.
+                  </p>
+                </div>
+              </div>
 
-              {processSteps.map((step, idx) => {
-                const isActive = activeStep === idx;
-                return (
-                  <div 
-                    key={idx}
-                    ref={el => { stepRefs.current[idx] = el; }}
-                    className="relative transition-all duration-200"
-                  >
-                    {/* Chấm tròn đỏ mốc quy trình */}
-                    <div 
-                      className={`absolute -left-[23px] md:-left-[29px] top-1.5 w-4 h-4 md:w-4.5 md:h-4.5 rounded-full bg-[#FF391B] transition-transform ${
-                        isActive ? 'scale-125 ring-4 ring-[#FF391B]/20' : 'scale-100'
-                      }`}
-                    />
+              {/* KHU VỰC QUY TRÌNH: CHỈ HIỆN 1 QUY TRÌNH TẠI THỜI ĐIỂM ĐANG CUỘN */}
+              <div className="relative pl-6 md:pl-8 border-l-2 border-[#FF391B] pt-1">
+                {/* Chấm tròn đỏ mốc quy trình */}
+                <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-[#FF391B] ring-4 ring-[#FF391B]/20" />
 
-                    {/* Nội dung quy trình không khung border */}
-                    <div className="space-y-1.5">
-                      <h3 className="text-xl md:text-2xl font-black text-[#FF391B] tracking-tight">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal max-w-2xl">
-                        {step.description}
-                      </p>
-                    </div>
-
+                {/* Nội dung 1 quy trình đang kích hoạt (Animation mượt mà chuyển bước) */}
+                <div 
+                  key={activeStep}
+                  className="space-y-3 animate-in fade-in slide-in-from-bottom-3 duration-300 transition-all"
+                >
+                  <div className="flex items-center space-x-3">
+                    <span className="text-xs font-bold text-stone-500 uppercase tracking-widest">
+                      {processSteps[activeStep].subtitle}
+                    </span>
+                    <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-[#FF391B]/15 text-[#FF391B]">
+                      Giai đoạn {processSteps[activeStep].stepNumber}
+                    </span>
                   </div>
-                );
-              })}
+
+                  <h3 className="text-2xl md:text-3xl font-black text-[#FF391B] tracking-tight">
+                    {processSteps[activeStep].title}
+                  </h3>
+
+                  <p className="text-base md:text-lg text-stone-700 leading-relaxed font-normal max-w-2xl">
+                    {processSteps[activeStep].description}
+                  </p>
+
+                  {/* Thanh tiến độ 4 bước nhỏ gọn */}
+                  <div className="flex items-center space-x-2 pt-4">
+                    {processSteps.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setActiveStep(idx)}
+                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                          activeStep === idx 
+                            ? 'w-10 bg-[#FF391B]' 
+                            : 'w-3 bg-stone-300 hover:bg-stone-400'
+                        }`}
+                        aria-label={`Chuyển tới quy trình ${idx + 1}`}
+                      />
+                    ))}
+                    <span className="text-xs font-bold text-stone-500 pl-2">
+                      (Cuộn xuống để xem bước tiếp theo)
+                    </span>
+                  </div>
+                </div>
+
+              </div>
 
             </div>
 
           </div>
-
         </div>
       </section>
 
