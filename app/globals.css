@@ -30,3 +30,23 @@ body {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Hiệu ứng phóng to nhẹ rồi về kích thước ban đầu cho chấm cam */
+@keyframes dotPop {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.45);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-dot-pop {
+  animation: dotPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
