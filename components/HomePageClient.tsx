@@ -49,27 +49,19 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
   const processSteps = [
     {
       title: "Nền tảng sinh trưởng linh hoạt",
-      subtitle: "A growing platform",
-      description: "Công nghệ của Plenty có cấu trúc module độc lập và khả năng mở rộng linh hoạt, áp dụng tối ưu cho một dải rộng lớn các loại cây trồng: từ dâu tây, cà chua, dưa leo đến các loại rau mầm và hoa màu thơm.",
-      highlight: "Tương thích hơn 50+ giống cây trồng chất lượng cao."
+      description: "Công nghệ của Plenty có cấu trúc module và khả năng mở rộng linh hoạt, áp dụng tối ưu trên đa dạng các loại cây trồng: từ trái cây, rau mầm cho đến các loại hoa màu."
     },
     {
       title: "Hệ thống bằng sáng chế độc quyền",
-      subtitle: "Patent not pending",
-      description: "Chúng tôi kiến tạo lại trang trại từ nền móng ban đầu: sáng chế toàn bộ cấu trúc tháp đứng, hệ thống robot tự hành, đèn LED chuyên biệt và bộ điều khiển môi trường. Plenty sở hữu số lượng bằng sáng chế tại Hoa Kỳ nhiều hơn tất cả các công ty canh tác không ánh nắng mặt trời khác cộng lại.",
-      highlight: "100+ bằng sáng chế công nghệ nông nghiệp sunless."
+      description: "Chúng tôi tái tạo trang trại từ nền móng ban đầu, đồng nghĩa với việc phát minh hàng loạt phần cứng, phần mềm, robot và công nghệ tự động hoàn toàn mới. Plenty sở hữu số lượng bằng sáng chế tại Hoa Kỳ nhiều hơn tất cả các công ty canh tác không ánh nắng mặt trời khác cộng lại."
     },
     {
       title: "Nghiên cứu khoa học đẳng cấp thế giới",
-      subtitle: "World class research",
-      description: "Chúng tôi đã dành hơn một thập kỷ tập trung toàn lực cho hoạt động R&D cùng các nhà khoa học thực vật và kỹ sư hàng đầu thế giới để hoàn thiện phương thức canh tác không phụ thuộc vào thổ nhưỡng và thời tiết.",
-      highlight: "Hơn 10 năm nghiên cứu vi sinh học và dinh dưỡng cây trồng."
+      description: "Chúng tôi đã dành hơn một thập kỷ tập trung nghiên cứu và phát triển để xây dựng nên một kỷ nguyên canh tác hoàn toàn mới."
     },
     {
       title: "Nông nghiệp vận hành bằng dữ liệu",
-      subtitle: "Data farming",
-      description: "Với mạng lưới hàng triệu cảm biến IoT, camera quang học độ phân giải cao và thuật toán trí tuệ nhân tạo (AI), hệ thống liên tục giám sát và tự động tinh chỉnh vi khí hậu theo từng giây – giúp trang trại vận hành ngày một thông minh hơn.",
-      highlight: "10 tỷ điểm dữ liệu sinh trưởng phân tích theo thời gian thực."
+      description: "Với các dàn cảm biến đa điểm, thị giác máy tính và thuật toán học máy (Machine Learning), hệ thống liên tục giám sát và tự động tinh chỉnh điều kiện môi trường – giúp trang trại phát triển tốt hơn từng ngày."
     }
   ];
 
@@ -367,112 +359,74 @@ export default function HomePageClient({ settings, services, posts }: HomePageCl
         </div>
       </section>
 
-      {/* ================= GROWING DIFFERENTLY SECTION (INTERACTIVE SCROLL TIMELINE) ================= */}
-      <section id="technology" className="px-4 md:px-8 py-16 md:py-28 max-w-[1440px] mx-auto border-t border-stone-200/60">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+      {/* ================= GROWING DIFFERENTLY SECTION (CLEAN PROCESS TIMELINE MATCHING PLENTY EXACTLY) ================= */}
+      <section id="technology" className="px-4 md:px-12 py-16 md:py-24 max-w-[1440px] mx-auto bg-[#F4F3E8] rounded-[32px] md:rounded-[44px] my-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
           
-          {/* CỘT TRÁI: STICKY PANEL VỚI HÌNH ẢNH THÁP ĐỨNG CHUẨN PLENTY */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28">
-            <div className="rounded-[28px] overflow-hidden shadow-2xl border border-stone-200/80 bg-stone-100 relative group aspect-[9/16] max-h-[82vh] w-full">
+          {/* CỘT TRÁI: HÌNH ẢNH THÁP ĐỨNG CANH TÁC PLENTY BO TRÒN GÓC */}
+          <div className="lg:col-span-5 h-[560px] md:h-[680px] w-full">
+            <div className="rounded-[28px] md:rounded-[32px] overflow-hidden shadow-md h-full w-full bg-stone-200">
               <img 
                 src="https://www.plenty.ag/wp-content/uploads/2024/03/221103_PLENTY_SIERRA_17105_BYH3_FINAL-1.jpg.webp" 
                 alt="Tháp canh tác thẳng đứng Plenty" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover"
               />
-              {/* Badge chỉ số bước hiện tại */}
-              <div className="absolute top-6 left-6 bg-[#FF391B] text-[#FFEA00] px-4 py-2 rounded-full font-black text-sm tracking-wider uppercase shadow-lg flex items-center space-x-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#FFEA00] animate-pulse"></span>
-                <span>Quy trình {activeStep + 1} / {processSteps.length}</span>
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-black/60 backdrop-blur-md text-white text-xs font-medium">
-                Hệ thống tháp dâu tây thẳng đứng kết hợp dàn đèn LED quang phổ tùy biến tại Plenty.
-              </div>
             </div>
           </div>
 
-          {/* CỘT PHẢI: TIÊU ĐỀ & TIMELINE DỌC HOẠT ĐỘNG THEO CUỘN TRANG */}
-          <div className="lg:col-span-7 space-y-12">
+          {/* CỘT PHẢI: NỘI DUNG VÀ TIẾN TRÌNH QUY TRÌNH (KHÔNG BORDER KHUNG TO) */}
+          <div className="lg:col-span-7 flex flex-col justify-between py-2">
             
-            {/* Header thông điệp chính */}
-            <div className="space-y-4">
-              <h2 className="text-[#FF391B] font-black text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.9]">
-                Growing Differently
+            {/* Header tiếng Việt hoàn toàn */}
+            <div className="space-y-4 mb-6">
+              <h2 className="text-[#FF391B] font-black text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[0.95]">
+                Canh Tác Khác Biệt
               </h2>
-              <div className="pt-4 space-y-4 text-xl md:text-2xl text-[#FF391B] font-medium leading-relaxed">
-                <p>
-                  Plenty® is more than just delicious, locally grown produce. We’re completely reimagining what a farm can be.
+              
+              <div className="space-y-3 text-lg md:text-xl font-medium leading-relaxed">
+                <p className="text-[#FF391B]">
+                  Plenty® mang đến nhiều hơn cả nông sản tươi ngon. Chúng tôi đang tái định nghĩa hoàn toàn phương thức vận hành của một trang trại.
                 </p>
-                <p>
-                  Chúng tôi đang đổi mới một phương thức canh tác hoàn toàn mới: sử dụng ít đất và nước hơn tới 95%, áp dụng linh hoạt trên đa dạng loại cây trồng. Cho đến nay, Plenty đã nuôi trồng thành công hơn 50 giống cây trồng trên nền tảng công nghệ linh hoạt.
+                <p className="text-[#FF391B]">
+                  Chúng tôi đổi mới quy trình nông nghiệp tiết kiệm đất và nước tối đa, có thể áp dụng trên đa dạng các loại cây trồng. Cho đến nay, Plenty đã nuôi trồng thành công hơn 50 giống cây trồng trên nền tảng công nghệ linh hoạt.
                 </p>
               </div>
             </div>
 
-            {/* Quy trình Timeline từng bước */}
-            <div className="relative pl-8 md:pl-12 pt-6">
+            {/* Danh sách 4 bước quy trình (Timeline thẳng hàng, sạch sẽ, không khung border) */}
+            <div className="relative pl-6 md:pl-8 space-y-8">
               
-              {/* Đường chỉ đỏ timeline nối dài */}
-              <div className="absolute left-[13px] md:left-[17px] top-8 bottom-12 w-[3px] bg-stone-200">
-                <div 
-                  className="w-full bg-[#FF391B] transition-all duration-300"
-                  style={{
-                    height: `${((activeStep + 1) / processSteps.length) * 100}%`
-                  }}
-                />
-              </div>
+              {/* Đường chỉ đỏ timeline thanh mảnh chạy dọc */}
+              <div className="absolute left-[7px] md:left-[9px] top-3 bottom-6 w-[2px] bg-[#FF391B]" />
 
-              {/* Các bước quy trình */}
-              <div className="space-y-16">
-                {processSteps.map((step, idx) => {
-                  const isActive = activeStep === idx;
-                  return (
+              {processSteps.map((step, idx) => {
+                const isActive = activeStep === idx;
+                return (
+                  <div 
+                    key={idx}
+                    ref={el => { stepRefs.current[idx] = el; }}
+                    className="relative transition-all duration-200"
+                  >
+                    {/* Chấm tròn đỏ mốc quy trình */}
                     <div 
-                      key={idx}
-                      ref={el => { stepRefs.current[idx] = el; }}
-                      className={`relative transition-all duration-300 scroll-mt-36 ${
-                        isActive ? 'opacity-100 scale-100' : 'opacity-65 hover:opacity-100'
+                      className={`absolute -left-[23px] md:-left-[29px] top-1.5 w-4 h-4 md:w-4.5 md:h-4.5 rounded-full bg-[#FF391B] transition-transform ${
+                        isActive ? 'scale-125 ring-4 ring-[#FF391B]/20' : 'scale-100'
                       }`}
-                    >
-                      {/* Chấm tròn đỏ / icon điểm mốc */}
-                      <div 
-                        className={`absolute -left-[27px] md:-left-[39px] top-1.5 w-6 h-6 md:w-7 md:h-7 rounded-full flex items-center justify-center transition-all ${
-                          isActive 
-                            ? 'bg-[#FF391B] ring-4 ring-red-100 scale-110 shadow-md' 
-                            : 'bg-stone-300'
-                        }`}
-                      >
-                        <div className="w-2.5 h-2.5 rounded-full bg-white" />
-                      </div>
+                    />
 
-                      {/* Nội dung từng bước quy trình */}
-                      <div className="bg-[#F4F3E8]/80 p-8 md:p-10 rounded-[28px] border border-stone-200/70 shadow-sm transition-all hover:shadow-md">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-bold text-stone-500 uppercase tracking-widest">
-                            {step.subtitle}
-                          </span>
-                          <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#FF391B] text-white">
-                            Giai đoạn 0{idx + 1}
-                          </span>
-                        </div>
-                        
-                        <h3 className="text-2xl md:text-3xl font-black text-[#FF391B] mb-4 tracking-tight">
-                          {step.title}
-                        </h3>
-
-                        <p className="text-base md:text-lg text-stone-700 leading-relaxed font-normal mb-5">
-                          {step.description}
-                        </p>
-
-                        <div className="inline-flex items-center space-x-2 text-sm font-bold text-[#121212] bg-white/80 px-4 py-2 rounded-full border border-stone-200">
-                          <CheckCircle2 size={16} className="text-[#FF391B]" />
-                          <span>{step.highlight}</span>
-                        </div>
-                      </div>
-
+                    {/* Nội dung quy trình không khung border */}
+                    <div className="space-y-1.5">
+                      <h3 className="text-xl md:text-2xl font-black text-[#FF391B] tracking-tight">
+                        {step.title}
+                      </h3>
+                      <p className="text-sm md:text-base text-stone-600 leading-relaxed font-normal max-w-2xl">
+                        {step.description}
+                      </p>
                     </div>
-                  );
-                })}
-              </div>
+
+                  </div>
+                );
+              })}
 
             </div>
 
