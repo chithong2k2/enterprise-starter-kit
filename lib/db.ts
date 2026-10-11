@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 const DB_PATH = path.join(process.cwd(), 'data', 'db.json');
+const TMP_DB_PATH = path.join('/tmp', 'db.json');
 
 export interface PageSection {
   id: string;
@@ -119,6 +120,12 @@ export interface DatabaseSchema {
 
 export async function getDatabase(): Promise<DatabaseSchema> {
   try {
+    const rawTmp = await fs.readFile(TMP_DB_PATH, 'utf-8');
+    return JSON.parse(rawTmp);
+  } catch {
+    // Fallback to bundled data/db.json
+  }
+  try {
     const raw = await fs.readFile(DB_PATH, 'utf-8');
     return JSON.parse(raw);
   } catch (error) {
@@ -128,7 +135,13 @@ export async function getDatabase(): Promise<DatabaseSchema> {
 }
 
 export async function saveDatabase(data: DatabaseSchema): Promise<void> {
-  await fs.writeFile(DB_PATH, JSON.stringify(data, null, 2), 'utf-8');
+  const serialized = JSON.stringify(data, null, 2);
+  try {
+    await fs.writeFile(DB_PATH, serialized, 'utf-8');
+  } catch {
+    // ponytail: Vercel serverless /var/task is read-only (EROFS); persist to /tmp/db.json per instance
+    await fs.writeFile(TMP_DB_PATH, serialized, 'utf-8');
+  }
 }
 
 // Helpers
